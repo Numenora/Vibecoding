@@ -103,7 +103,7 @@ function GridView() {
         </h1>
         <div className="hero-foot">
           <p>
-            Привет, я Алексей — продуктовый дизайнер. Превращаю сложные системы
+            Привет, я Александр — продуктовый дизайнер. Превращаю сложные системы
             в простые, честные и запоминающиеся интерфейсы.
           </p>
           <a href="#work">
@@ -158,9 +158,9 @@ function EditorialView() {
             <span className="status-dot" /> Available for selected projects
           </Badge>
           <h1>
-            Алексей
+            Александр
             <br />
-            Морозов<span>.</span>
+            Сухов<span>.</span>
           </h1>
         </div>
         <div className="editorial-intro">
