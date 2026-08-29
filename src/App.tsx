@@ -122,15 +122,10 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
     <main className="case-page">
       <section className="case-hero">
         <div className="case-heading">
-          <span>{project.number}</span>
           <h1>{project.title}</h1>
         </div>
         <div className="case-summary">
           <p>{project.description}</p>
-          <dl>
-            <div><dt>Направление</dt><dd>{project.discipline}</dd></div>
-            {project.year && <div><dt>Год</dt><dd>{project.year}</dd></div>}
-          </dl>
         </div>
       </section>
 
