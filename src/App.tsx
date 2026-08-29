@@ -54,11 +54,8 @@ function Header() {
   return (
     <header className="site-header">
       <InternalLink href="/">Александр Сухов</InternalLink>
-      <nav aria-label="Основная навигация">
-        <InternalLink href="/#work">Работы</InternalLink>
-        <InternalLink href="/#about">Обо мне</InternalLink>
-        <a href="mailto:hello@example.com">Связаться</a>
-      </nav>
+      <InternalLink href="/" className="site-header-home">Главная</InternalLink>
+      <a className="site-header-contact" href="https://t.me/">Telegram</a>
     </header>
   );
 }
