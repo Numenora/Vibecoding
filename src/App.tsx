@@ -104,7 +104,7 @@ const projects = [
     discipline: "Product design · Growth",
     year: "2025",
     description: "Как исследование флоу покупки и две итерации дизайна помогли упростить чекаут, устранить просадку первого шага и увеличить конверсию в оплату на десктопе.",
-    highlight: "+16,4% к конверсии из чекаута в оплату на десктопе",
+    highlight: "+16,4% к конверсии в оплату",
     image: "",
     caseSections: [
       {
@@ -157,6 +157,17 @@ function Header() {
   );
 }
 
+function ProjectResult({ project, compact = false }: { project: (typeof projects)[number]; compact?: boolean }) {
+  if (compact) return <p className="project-description">{project.highlight}</p>;
+
+  return (
+    <div className="case-highlight">
+      <span>Главный результат</span>
+      <strong>{project.highlight}</strong>
+    </div>
+  );
+}
+
 function Project({ project }: { project: (typeof projects)[number] }) {
   const href = `/projects/${project.slug}`;
   return (
@@ -165,7 +176,7 @@ function Project({ project }: { project: (typeof projects)[number] }) {
         <span>{project.number}</span>
         <h2><InternalLink href={href}>{project.title}</InternalLink></h2>
         <div className="project-type-spacer" aria-hidden="true" />
-        <p className="project-description">{project.description}</p>
+        <ProjectResult project={project} compact />
         <InternalLink href={href}>Смотреть проект</InternalLink>
       </div>
       {project.image && (
@@ -225,10 +236,7 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
         </div>
         <div className="case-summary">
           <p>{project.description}</p>
-          <div className="case-highlight">
-            <span>Главный результат</span>
-            <strong>{project.highlight}</strong>
-          </div>
+          <ProjectResult project={project} />
         </div>
       </section>
 
