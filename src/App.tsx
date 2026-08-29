@@ -1,7 +1,34 @@
 import { type MouseEvent, useEffect, useState } from "react";
 
 const projects = [
-  { slug: "fintech-for-everyday", number: "01", title: "Fintech for everyday", discipline: "Product design", year: "2025", description: "Как мы превратили сложное управление финансами в спокойный ежедневный ритуал.", image: "/projects/fintech.jpg" },
+  {
+    slug: "course-editor",
+    legacySlugs: ["fintech-for-everyday"],
+    number: "01",
+    title: "Редактор курсов",
+    discipline: "Product design · EdTech",
+    year: "",
+    description: "Единый редактор, который объединил авторов, методистов и дизайнеров в одном процессе — без ручного переноса контента между инструментами.",
+    image: "/projects/Editor.png",
+    caseSections: [
+      {
+        title: "Контекст",
+        text: "Авторы готовили курсы в привычных инструментах — Notion, Wiki и других редакторах. Затем контент-менеджеры вручную переносили материалы в админку Практикума, а методисты, дизайнеры и другие специалисты подключались к работе через отдельные тикеты.",
+      },
+      {
+        title: "Проблема",
+        text: "Производство курса состояло из множества передач между людьми и системами. Команда тратила время на перенос уже созданного контента, согласования растягивались, а исходные материалы и их версии хранились в разных местах.",
+      },
+      {
+        title: "Решение",
+        text: "Мы спроектировали Notion-like редактор внутри админки и сделали её единой точкой входа для всей команды. Авторы смогли собирать курс сразу в продуктовой среде, включая сложные блоки тренажёров, а методисты и дизайнеры — обсуждать изменения в контексте через комментарии и упоминания.",
+      },
+      {
+        title: "Что изменилось",
+        text: "Из процесса исчез отдельный этап ручного переноса материалов. Работа над курсом стала прозрачнее: актуальный контент хранится в одном месте, участники видят общий контекст и быстрее подключаются к обсуждению.",
+      },
+    ],
+  },
   { slug: "care-made-human", number: "02", title: "Care, made human", discipline: "Research & UX", year: "2024", description: "Новый опыт записи к врачу, который помогает не тревожиться и быстро получить помощь.", image: "/projects/health.jpg" },
   { slug: "teams-in-motion", number: "03", title: "Teams in motion", discipline: "Product strategy", year: "2023", description: "Единое пространство для команд: от первой идеи до запущенного продукта.", image: "/projects/teams.jpg" },
   { slug: "city-after-dark", number: "04", title: "City after dark", discipline: "Mobile app", year: "2023", description: "Гид по городу, который подстраивается под настроение, время и компанию.", image: "/projects/city.jpg" },
@@ -42,7 +69,7 @@ function Project({ project }: { project: (typeof projects)[number] }) {
       <div className="project-meta">
         <span>{project.number}</span>
         <h2><InternalLink href={href}>{project.title}</InternalLink></h2>
-        <p className="project-type">{project.discipline}<br />{project.year}</p>
+        <p className="project-type">{project.discipline}{project.year && <><br />{project.year}</>}</p>
         <p className="project-description">{project.description}</p>
         <InternalLink href={href}>Смотреть проект</InternalLink>
       </div>
@@ -100,17 +127,27 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
           <p>{project.description}</p>
           <dl>
             <div><dt>Направление</dt><dd>{project.discipline}</dd></div>
-            <div><dt>Год</dt><dd>{project.year}</dd></div>
+            {project.year && <div><dt>Год</dt><dd>{project.year}</dd></div>}
           </dl>
         </div>
       </section>
 
-      <img className="case-cover" src={project.image} alt={`Обложка проекта ${project.title}`} />
+      <img className={`case-cover${project.slug === "course-editor" ? " case-cover--editor" : ""}`} src={project.image} alt={`Обложка проекта ${project.title}`} />
 
-      <section className="case-content" aria-label="Структура кейса">
-        <div><span>01</span><h2>Задача</h2><p>Описание проекта будет добавлено позже.</p></div>
-        <div><span>02</span><h2>Подход</h2><p>Описание процесса будет добавлено позже.</p></div>
-        <div><span>03</span><h2>Результат</h2><p>Результаты проекта будут добавлены позже.</p></div>
+      <section className="case-content" aria-label="Описание кейса">
+        {"caseSections" in project && project.caseSections ? project.caseSections.map((section, sectionIndex) => (
+          <div key={section.title}>
+            <span>{String(sectionIndex + 1).padStart(2, "0")}</span>
+            <h2>{section.title}</h2>
+            <p>{section.text}</p>
+          </div>
+        )) : (
+          <>
+            <div><span>01</span><h2>Задача</h2><p>Описание проекта будет добавлено позже.</p></div>
+            <div><span>02</span><h2>Подход</h2><p>Описание процесса будет добавлено позже.</p></div>
+            <div><span>03</span><h2>Результат</h2><p>Результаты проекта будут добавлены позже.</p></div>
+          </>
+        )}
       </section>
 
       <nav className="case-navigation" aria-label="Навигация между проектами">
@@ -156,7 +193,7 @@ export default function App() {
   }, [path]);
 
   const slug = path.match(/^\/projects\/([^/]+)\/?$/)?.[1];
-  const project = projects.find((item) => item.slug === slug);
+  const project = projects.find((item) => item.slug === slug || ("legacySlugs" in item && item.legacySlugs?.includes(slug ?? "")));
 
   return (
     <div id="top">
