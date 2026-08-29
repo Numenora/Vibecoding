@@ -29,7 +29,38 @@ const projects = [
       },
     ],
   },
-  { slug: "care-made-human", number: "02", title: "Care, made human", discipline: "Research & UX", year: "2024", description: "Новый опыт записи к врачу, который помогает не тревожиться и быстро получить помощь.", image: "/projects/health.jpg" },
+  {
+    slug: "course-catalog",
+    legacySlugs: ["care-made-human"],
+    number: "02",
+    title: "Каталог курсов",
+    discipline: "Product design · EdTech",
+    year: "2026",
+    description: "Перепроектирование каталога Практикума: новая структура, фильтры и карточки курсов, которые упростили выбор и увеличили конверсию в подписку на 37,8%.",
+    image: "",
+    caseSections: [
+      {
+        title: "Контекст",
+        text: "Каталог не помогал пользователям быстро разобраться в большом количестве курсов. В категориях не хватало подкатегорий, теги работали непредсказуемо, а каждый тариф отображался отдельной карточкой. Из-за этого интерфейс был перегружен, а подходящий курс было сложно найти.",
+      },
+      {
+        title: "Задача",
+        text: "Снизить когнитивную нагрузку, упростить навигацию по каталогу и повысить конверсию из посещения каталога в подписку или заявку — без заметного ухудшения дальнейшего пути пользователя до первого урока.",
+      },
+      {
+        title: "Решение",
+        text: "Мы перестроили категории и добавили подкатегории, исправили фильтры и теги, объединили тарифы одного курса в одну карточку и убрали цену из общего каталога. Одновременно переработали дизайн карточек, чтобы на экране помещалось больше курсов, а переход к подробной информации стал заметнее.",
+      },
+      {
+        title: "Эксперимент",
+        text: "В контрольной группе пользователи видели прежний каталог, в тестовой — новую структуру, фильтры и карточки. Эксперимент проходил с 27 декабря 2025 года по 9 февраля 2026 года на десктопе и мобильном вебе. Несколько гипотез проверялись одновременно, поэтому вклад каждого отдельного изменения нельзя оценить изолированно.",
+      },
+      {
+        title: "Результат",
+        text: "В тестовой версии конверсия из каталога в клик по карточке выросла на 25,08%, в подписку — на 37,77%, а в первый урок по подписке на платную профессию — на 23,63%. Конверсия в посещение чекаута выросла на 73,38%. Изменение конверсии в оплату составило −9,99%, но не было статистически значимым.",
+      },
+    ],
+  },
   { slug: "teams-in-motion", number: "03", title: "Teams in motion", discipline: "Product strategy", year: "2023", description: "Единое пространство для команд: от первой идеи до запущенного продукта.", image: "/projects/teams.jpg" },
   { slug: "city-after-dark", number: "04", title: "City after dark", discipline: "Mobile app", year: "2023", description: "Гид по городу, который подстраивается под настроение, время и компанию.", image: "/projects/city.jpg" },
 ];
@@ -71,9 +102,11 @@ function Project({ project }: { project: (typeof projects)[number] }) {
         <p className="project-description">{project.description}</p>
         <InternalLink href={href}>Смотреть проект</InternalLink>
       </div>
-      <InternalLink className="project-cover" href={href} ariaLabel={`Открыть проект ${project.title}`}>
-        <img src={project.image} alt={`Обложка проекта ${project.title}`} />
-      </InternalLink>
+      {project.image && (
+        <InternalLink className="project-cover" href={href} ariaLabel={`Открыть проект ${project.title}`}>
+          <img src={project.image} alt={`Обложка проекта ${project.title}`} />
+        </InternalLink>
+      )}
     </article>
   );
 }
@@ -129,7 +162,7 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
         </div>
       </section>
 
-      <img className={`case-cover${project.slug === "course-editor" ? " case-cover--editor" : ""}`} src={project.image} alt={`Обложка проекта ${project.title}`} />
+      {project.image && <img className={`case-cover${project.slug === "course-editor" ? " case-cover--editor" : ""}`} src={project.image} alt={`Обложка проекта ${project.title}`} />}
 
       <section className="case-content" aria-label="Описание кейса">
         {"caseSections" in project && project.caseSections ? project.caseSections.map((section, sectionIndex) => (
