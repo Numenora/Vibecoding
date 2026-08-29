@@ -34,7 +34,7 @@ const projects = [
     slug: "catalog-impact",
     legacySlugs: ["course-catalog", "care-made-human", "teams-in-motion", "growth-experiments"],
     number: "02",
-    title: "Эффект нового каталога",
+    title: "Обновление каталога",
     discipline: "Product design · Growth",
     year: "2026",
     description: "Как новый каталог курсов упростил выбор и дал статистически значимый рост ключевых этапов воронки — от клика по карточке до первого урока.",
