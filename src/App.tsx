@@ -35,7 +35,8 @@ const projects = [
 ];
 
 function navigate(href: string) {
-  window.history.pushState({}, "", href);
+  const from = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+  window.history.pushState({ from }, "", href);
   window.dispatchEvent(new PopStateEvent("popstate"));
 }
 
@@ -112,8 +113,13 @@ function About() {
 
 function CasePage({ project }: { project: (typeof projects)[number] }) {
   const index = projects.indexOf(project);
-  const previous = projects[(index - 1 + projects.length) % projects.length];
   const next = projects[(index + 1) % projects.length];
+  const storedFrom = typeof window.history.state?.from === "string" ? window.history.state.from : "";
+  const currentPath = `/projects/${project.slug}`;
+  const backHref = storedFrom && storedFrom !== currentPath ? storedFrom : "/#work";
+  const backSlug = backHref.match(/^\/projects\/([^/?#]+)/)?.[1];
+  const backProject = projects.find((item) => item.slug === backSlug || ("legacySlugs" in item && item.legacySlugs?.includes(backSlug ?? "")));
+  const backLabel = backProject?.title ?? "Главная";
 
   return (
     <main className="case-page">
@@ -150,13 +156,12 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
       </section>
 
       <nav className="case-navigation" aria-label="Навигация между проектами">
-        <InternalLink href={`/projects/${previous.slug}`}>
-          <span>← Предыдущий проект</span>
-          <strong>{previous.title}</strong>
+        <InternalLink href={backHref}>
+          <span>← Назад</span>
+          <strong>{backLabel}</strong>
         </InternalLink>
-        <InternalLink href="/#work" className="back-to-work">Все проекты</InternalLink>
         <InternalLink href={`/projects/${next.slug}`}>
-          <span>Следующий проект →</span>
+          <span>Следующий проект</span>
           <strong>{next.title}</strong>
         </InternalLink>
       </nav>
