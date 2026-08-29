@@ -69,9 +69,7 @@ function Project({ project }: { project: (typeof projects)[number] }) {
       <div className="project-meta">
         <span>{project.number}</span>
         <h2><InternalLink href={href}>{project.title}</InternalLink></h2>
-        {project.slug === "course-editor"
-          ? <div className="project-type-spacer" aria-hidden="true" />
-          : <p className="project-type">{project.discipline}{project.year && <><br />{project.year}</>}</p>}
+        <div className="project-type-spacer" aria-hidden="true" />
         <p className="project-description">{project.description}</p>
         <InternalLink href={href}>Смотреть проект</InternalLink>
       </div>
