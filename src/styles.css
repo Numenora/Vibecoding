@@ -122,6 +122,30 @@ main { padding: 0 var(--page); }
   letter-spacing: -0.025em;
 }
 
+.case-highlight {
+  max-width: 480px;
+  margin-top: 54px;
+  padding-top: 12px;
+  border-top: 1px solid #111;
+}
+
+.case-highlight span {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 9px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+}
+
+.case-highlight strong {
+  display: block;
+  font-size: clamp(22px, 2.2vw, 34px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  font-weight: 400;
+}
+
 .case-cover {
   display: block;
   width: 100%;
@@ -292,6 +316,7 @@ main { padding: 0 var(--page); }
   .case-page { padding-top: 54px; }
   .case-hero { min-height: 620px; gap: 70px; }
   .case-heading h1 { font-size: 52px; }
+  .case-highlight { margin-top: 38px; }
   .case-cover { aspect-ratio: 1.32 / 1; }
   .case-cover--editor { aspect-ratio: auto; }
   .case-content > div { grid-template-columns: 28px 1fr; gap: 18px; }

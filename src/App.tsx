@@ -9,6 +9,7 @@ const projects = [
     discipline: "Product design · EdTech",
     year: "",
     description: "Единый редактор, который объединил авторов, методистов и дизайнеров в одном процессе — без ручного переноса контента между инструментами.",
+    highlight: "Один редактор вместо разрозненных инструментов и ручного переноса контента",
     image: "/projects/Editor.png",
     caseSections: [
       {
@@ -37,6 +38,7 @@ const projects = [
     discipline: "Product design · EdTech",
     year: "2026",
     description: "Перепроектирование каталога Практикума: новая структура, фильтры и карточки курсов, которые упростили выбор и увеличили конверсию в подписку на 37,8%.",
+    highlight: "+37,77% к конверсии из каталога в подписку",
     image: "",
     caseSections: [
       {
@@ -69,6 +71,7 @@ const projects = [
     discipline: "Product design · Growth",
     year: "2026",
     description: "Как новый каталог курсов упростил выбор и дал статистически значимый рост ключевых этапов воронки — от клика по карточке до первого урока.",
+    highlight: "+37,77% к подписке · +23,63% к первому уроку",
     image: "",
     caseSections: [
       {
@@ -93,7 +96,7 @@ const projects = [
       },
     ],
   },
-  { slug: "city-after-dark", number: "04", title: "City after dark", discipline: "Mobile app", year: "2023", description: "Гид по городу, который подстраивается под настроение, время и компанию.", image: "/projects/city.jpg" },
+  { slug: "city-after-dark", number: "04", title: "City after dark", discipline: "Mobile app", year: "2023", description: "Гид по городу, который подстраивается под настроение, время и компанию.", highlight: "Результат проекта будет добавлен позже", image: "/projects/city.jpg" },
 ];
 
 function navigate(href: string) {
@@ -190,6 +193,10 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
         </div>
         <div className="case-summary">
           <p>{project.description}</p>
+          <div className="case-highlight">
+            <span>Главный результат</span>
+            <strong>{project.highlight}</strong>
+          </div>
         </div>
       </section>
 
