@@ -165,6 +165,22 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
           <strong>{next.title}</strong>
         </InternalLink>
       </nav>
+
+      <footer className="case-footer">
+        <p>
+          Available for full/part-time and collaborations.<br />
+          Based in Serbia, working worldwide. <a href="mailto:hello@example.com">Let’s collaborate.</a>
+        </p>
+        <div className="case-footer-bottom">
+          <nav aria-label="Social links">
+            <a href="mailto:hello@example.com">Email</a>
+            <a href="https://www.linkedin.com/">Linkedin</a>
+            <a href="https://www.instagram.com/">Instagram</a>
+            <a href="https://www.whatsapp.com/">WhatsApp</a>
+          </nav>
+          <span>Version 2.1 / © Ann Bittner 2026</span>
+        </div>
+      </footer>
     </main>
   );
 }
