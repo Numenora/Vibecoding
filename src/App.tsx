@@ -69,7 +69,9 @@ function Project({ project }: { project: (typeof projects)[number] }) {
       <div className="project-meta">
         <span>{project.number}</span>
         <h2><InternalLink href={href}>{project.title}</InternalLink></h2>
-        <p className="project-type">{project.discipline}{project.year && <><br />{project.year}</>}</p>
+        {project.slug === "course-editor"
+          ? <div className="project-type-spacer" aria-hidden="true" />
+          : <p className="project-type">{project.discipline}{project.year && <><br />{project.year}</>}</p>}
         <p className="project-description">{project.description}</p>
         <InternalLink href={href}>Смотреть проект</InternalLink>
       </div>
@@ -85,7 +87,6 @@ function HomePage() {
     <main>
       <section className="intro" aria-labelledby="intro-title">
         <h1 id="intro-title">Независимый продуктовый дизайнер.<br />Помогаю командам находить ясность<br />и создавать цифровые продукты<br />с характером.</h1>
-        <p>Selected work · 2021—2025</p>
       </section>
       <section className="work" id="work" aria-label="Избранные проекты">
         {projects.map((project) => <Project project={project} key={project.number} />)}
