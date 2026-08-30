@@ -90,59 +90,56 @@ main { padding: 0 var(--page); }
 .project-cover:hover img, .project-cover:focus-visible img { transform: scale(1.012); }
 
 .case-page {
-  padding-top: clamp(64px, 8vw, 120px);
+  padding-top: 0;
 }
 
 .case-hero {
-  min-height: 420px;
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 8vw;
-  align-items: start;
+  position: relative;
+  min-height: calc(100vh - 38px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .case-heading {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
 }
 
 .case-heading h1 {
   margin: 0;
-  max-width: 720px;
-  font-size: clamp(56px, 7vw, 112px);
-  line-height: 0.9;
-  font-weight: 400;
+  max-width: 900px;
+  font-size: clamp(22px, 1.8vw, 30px);
+  line-height: 1.15;
+  font-weight: 500;
 }
 
 .case-summary {
-  padding-top: 10px;
+  position: absolute;
+  left: 0;
+  bottom: 48px;
+  width: min(760px, 62%);
+  text-align: left;
 }
 
 .case-summary > p {
-  max-width: 480px;
+  max-width: 760px;
   margin: 0;
-  font-size: clamp(18px, 1.8vw, 28px);
-  line-height: 1.18;
+  font-size: clamp(18px, 1.7vw, 27px);
+  line-height: 1.2;
 }
 
 .case-highlight {
-  max-width: 480px;
-  margin-top: 54px;
-  padding-top: 12px;
-  border-top: 1px solid #111;
-}
-
-.case-highlight span {
-  display: block;
-  margin-bottom: 16px;
-  font-size: 9px;
-  line-height: 1;
-  text-transform: uppercase;
+  max-width: 720px;
 }
 
 .case-highlight strong {
   display: block;
-  font-size: clamp(22px, 2.2vw, 34px);
-  line-height: 1.05;
+  font-size: clamp(16px, 1.25vw, 20px);
+  line-height: 1.2;
   font-weight: 400;
 }
 
@@ -293,8 +290,7 @@ main { padding: 0 var(--page); }
   .project-type { grid-column: 2; }
   .project-description { grid-column: 2 / -1; }
   .project-meta > a { grid-column: 3; grid-row: 1; }
-  .case-hero { grid-template-columns: 1fr; min-height: 560px; }
-  .case-summary { max-width: 620px; }
+  .case-summary > p { max-width: 620px; }
 }
 
 @media (max-width: 620px) {
@@ -307,10 +303,10 @@ main { padding: 0 var(--page); }
   .project-type, .project-description, .project-meta > a { grid-column: 2; }
   .project-meta > a { grid-row: auto; justify-self: start; }
   .project-cover img { aspect-ratio: 1.32 / 1; }
-  .case-page { padding-top: 54px; }
-  .case-hero { min-height: 620px; gap: 70px; }
-  .case-heading h1 { font-size: 52px; }
-  .case-highlight { margin-top: 38px; }
+  .case-hero { min-height: calc(100svh - 38px); }
+  .case-heading { gap: 16px; }
+  .case-heading h1 { font-size: 24px; }
+  .case-summary { bottom: 36px; width: 100%; }
   .case-cover { aspect-ratio: 1.32 / 1; }
   .case-cover--editor { aspect-ratio: auto; }
   .case-content > div { grid-template-columns: 28px 1fr; gap: 18px; }

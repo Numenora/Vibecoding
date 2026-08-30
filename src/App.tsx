@@ -133,7 +133,6 @@ function ProjectResult({ project, compact = false }: { project: (typeof projects
 
   return (
     <div className="case-highlight">
-      <span>Главный результат</span>
       <strong>{project.highlight}</strong>
     </div>
   );
@@ -207,10 +206,10 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
       <section className="case-hero">
         <div className="case-heading">
           <h1>{project.title}</h1>
-        </div>
-        <div className="case-summary">
-          <p>{project.description}</p>
           <ProjectResult project={project} />
+        </div>
+        <div className="case-summary" aria-label="Краткое описание проекта">
+          <p>{project.description}</p>
         </div>
       </section>
 
