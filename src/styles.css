@@ -110,6 +110,9 @@ main {
   gap: 32px;
   border: 0;
   padding: 16px;
+  width: 100%;
+  max-width: 1024px;
+  margin-inline: auto;
   text-align: left;
 }
 .project-card .project-meta > span { position: absolute; top: 16px; left: 16px; }
@@ -151,7 +154,7 @@ main {
 
 .project-cover-single {
   width: 100%;
-  padding: 16px;
+  padding: 40px 16px;
   display: flex;
   align-items: center;
   justify-content: center;
