@@ -44,7 +44,7 @@ const projects = [
     year: "2026",
     description: "Как новый каталог курсов упростил выбор и дал статистически значимый рост ключевых этапов воронки — от клика по карточке до первого урока.",
     highlight: "+37,77% к подписке · +23,63% к первому уроку",
-    image: "",
+    image: "/projects/Catalog.png",
     caseSections: [
       {
         title: "Контекст",
@@ -77,7 +77,7 @@ const projects = [
     year: "2025",
     description: "Как исследование флоу покупки и две итерации дизайна помогли упростить чекаут, устранить просадку первого шага и увеличить конверсию в оплату на десктопе.",
     highlight: "+16,4% к конверсии в оплату",
-    image: "",
+    image: "/projects/Checkout.png",
     caseSections: [
       {
         title: "Контекст",
@@ -158,15 +158,11 @@ function Project({ project }: { project: (typeof projects)[number] }) {
         <div className="project-card">
           {meta}
           <InternalLink
-            className={`project-cover${project.slug === "course-editor" ? " project-cover--unclipped" : ""}`}
+            className="project-cover project-cover--unclipped"
             href={href}
             ariaLabel={`Открыть проект ${project.title}`}
           >
-            {project.slug === "course-editor" ? (
-              <img className="project-cover-single" src={project.image} alt={`Интерфейс проекта ${project.title}`} />
-            ) : (
-              <img src={project.image} alt={`Обложка проекта ${project.title}`} />
-            )}
+            <img className="project-cover-single" src={project.image} alt={`Интерфейс проекта ${project.title}`} />
           </InternalLink>
         </div>
       ) : meta}
