@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { createClient, type SupabaseClient, type User } from "@supabase/supabase-js";
 
-const reactions = ["❤️", "🔥", "🌚"] as const;
+const reactions = ["👍", "🔥", "💩"] as const;
 type Reaction = (typeof reactions)[number];
 type Counts = Record<Reaction, number>;
 
-const emptyCounts = (): Counts => ({ "❤️": 0, "🔥": 0, "🌚": 0 });
+const emptyCounts = (): Counts => ({ "👍": 0, "🔥": 0, "💩": 0 });
 const env = (import.meta as ImportMeta & { env: Record<string, string | undefined> }).env;
 const supabaseUrl = env.VITE_SUPABASE_URL;
 const supabaseKey = env.VITE_SUPABASE_ANON_KEY;
