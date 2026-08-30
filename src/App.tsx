@@ -1,4 +1,4 @@
-import { type MouseEvent, useEffect, useState } from "react";
+import { type MouseEvent, useEffect, useRef, useState } from "react";
 
 const projects = [
   {
@@ -11,6 +11,7 @@ const projects = [
     description: "Единый редактор, который объединил авторов, методистов и дизайнеров в одном процессе — без ручного переноса контента между инструментами.",
     highlight: "−43% задач контент-администраторов · −24% COS",
     image: "/projects/Editor.png",
+    video: "/projects/Editor.mp4",
     caseSections: [
       {
         title: "Контекст",
@@ -140,6 +141,21 @@ function ProjectResult({ project, compact = false }: { project: (typeof projects
 
 function Project({ project }: { project: (typeof projects)[number] }) {
   const href = `/projects/${project.slug}`;
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const video = "video" in project ? project.video : "";
+  const hasCover = Boolean(project.image || video);
+
+  const playCover = () => {
+    if (!videoRef.current) return;
+    void videoRef.current.play();
+  };
+
+  const stopCover = () => {
+    if (!videoRef.current) return;
+    videoRef.current.pause();
+    videoRef.current.currentTime = 0;
+  };
+
   const meta = (
     <div className="project-meta">
       <span>{project.number}</span>
@@ -151,11 +167,24 @@ function Project({ project }: { project: (typeof projects)[number] }) {
 
   return (
     <article className="project" id={`project-${project.number}`}>
-      {project.image ? (
-        <div className="project-card">
+      {hasCover ? (
+        <div className="project-card" onPointerEnter={playCover} onPointerLeave={stopCover}>
           {meta}
           <InternalLink className="project-cover" href={href} ariaLabel={`Открыть проект ${project.title}`}>
-            <img src={project.image} alt={`Обложка проекта ${project.title}`} />
+            {video ? (
+              <video
+                ref={videoRef}
+                src={video}
+                poster={project.image}
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label={`Видеообложка проекта ${project.title}`}
+              />
+            ) : (
+              <img src={project.image} alt={`Обложка проекта ${project.title}`} />
+            )}
           </InternalLink>
         </div>
       ) : meta}
