@@ -22,6 +22,7 @@ const projects = [
         title: "Проблема",
         text: "Производство курса состояло из множества передач между людьми и системами. В процессе была отдельно выделена роль контент-администраторов, которые занимались только переносом материалов из авторских черновиков в админку. Команда тратила время на повторную сборку уже созданного контента, согласования растягивались, а исходные материалы и их версии хранились в разных местах.",
         image: "/projects/Editor-problem.png",
+        caption: "Пример заведения обычного текстового блока в старой админке",
       },
       {
         title: "Решение",
@@ -312,6 +313,7 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
       <section className="case-content" aria-label="Описание кейса">
         {caseSections.map((section, sectionIndex) => {
           const sectionImage = "image" in section && typeof section.image === "string" ? section.image : undefined;
+          const sectionCaption = "caption" in section && typeof section.caption === "string" ? section.caption : undefined;
           const showPlaceholder = !("showImage" in section && section.showImage === false) && !sectionImage;
 
           return (
@@ -321,9 +323,12 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
                 <p>{section.text}</p>
               </div>
               {sectionImage ? (
-                <button className="case-section-image-button" type="button" onClick={() => setLightboxImage({ src: sectionImage, alt: `Изображение раздела «${section.title}»` })} aria-label={`Увеличить изображение раздела «${section.title}»`}>
-                  <img className="case-section-image" src={sectionImage} alt={`Изображение раздела «${section.title}»`} />
-                </button>
+                <figure className="case-section-figure">
+                  <button className="case-section-image-button" type="button" onClick={() => setLightboxImage({ src: sectionImage, alt: `Изображение раздела «${section.title}»` })} aria-label={`Увеличить изображение раздела «${section.title}»`}>
+                    <img className="case-section-image" src={sectionImage} alt={`Изображение раздела «${section.title}»`} />
+                  </button>
+                  {sectionCaption && <figcaption>{sectionCaption}</figcaption>}
+                </figure>
               ) : showPlaceholder ? (
                 <div className="case-section-placeholder" role="img" aria-label={`Место для изображения раздела «${section.title}»`} />
               ) : null}

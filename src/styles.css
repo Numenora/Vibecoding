@@ -374,6 +374,20 @@ video.case-cover--editor { cursor: default; }
   cursor: zoom-in;
 }
 
+.case-section-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.case-section-figure figcaption {
+  color: #777;
+  font-size: 14px;
+  line-height: 1.3;
+  text-align: left;
+}
+
 .case-section-image {
   display: block;
   width: 100%;
