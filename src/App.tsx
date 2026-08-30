@@ -162,29 +162,33 @@ function HomePage() {
   return (
     <main>
       <section className="intro" aria-labelledby="intro-title">
-        <h1 id="intro-title">Независимый продуктовый дизайнер.<br />Помогаю командам находить ясность<br />и создавать цифровые продукты<br />с характером.</h1>
+        <h1 id="intro-title">Независимый продуктовый дизайнер. Помогаю командам находить ясность и создавать цифровые продукты с характером.</h1>
       </section>
       <section className="work" id="work" aria-label="Избранные проекты">
         {projects.map((project) => <Project project={project} key={project.number} />)}
       </section>
-      <About />
+      <SiteFooter />
     </main>
   );
 }
 
-function About() {
+function SiteFooter() {
   return (
-    <section className="about" id="about">
-      <div>
-        <h2>Обо мне</h2>
-        <p>Работаю на стыке продукта, пользователей и бизнеса. Исследую, упрощаю сложное и проектирую интерфейсы, которые помогают людям достигать целей.</p>
-        <p>Люблю задавать вопросы, обсуждать системы и идеи.</p>
+    <footer className="case-footer">
+      <p>
+        Available for full/part-time and collaborations.<br />
+        Based in Serbia, working worldwide. <a href="mailto:hello@example.com">Let’s collaborate.</a>
+      </p>
+      <div className="case-footer-bottom">
+        <nav aria-label="Social links">
+          <a href="mailto:hello@example.com">Email</a>
+          <a href="https://www.linkedin.com/">Linkedin</a>
+          <a href="https://www.instagram.com/">Instagram</a>
+          <a href="https://www.whatsapp.com/">WhatsApp</a>
+        </nav>
+        <span>Version 2.1 / © Ann Bittner 2026</span>
       </div>
-      <div className="contacts">
-        <h2>Контакты</h2>
-        <a href="mailto:hello@example.com">hello@example.com</a>
-      </div>
-    </section>
+    </footer>
   );
 }
 
@@ -239,21 +243,7 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
         </InternalLink>
       </nav>
 
-      <footer className="case-footer">
-        <p>
-          Available for full/part-time and collaborations.<br />
-          Based in Serbia, working worldwide. <a href="mailto:hello@example.com">Let’s collaborate.</a>
-        </p>
-        <div className="case-footer-bottom">
-          <nav aria-label="Social links">
-            <a href="mailto:hello@example.com">Email</a>
-            <a href="https://www.linkedin.com/">Linkedin</a>
-            <a href="https://www.instagram.com/">Instagram</a>
-            <a href="https://www.whatsapp.com/">WhatsApp</a>
-          </nav>
-          <span>Version 2.1 / © Ann Bittner 2026</span>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }
