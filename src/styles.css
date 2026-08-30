@@ -136,6 +136,7 @@ main {
   border-radius: 10px;
   background: transparent;
 }
+.project-card .project-cover--unclipped { overflow: visible; }
 .project-card .project-cover img,
 .project-card .project-cover video {
   position: static;

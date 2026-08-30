@@ -157,7 +157,11 @@ function Project({ project }: { project: (typeof projects)[number] }) {
       {hasCover ? (
         <div className="project-card">
           {meta}
-          <InternalLink className="project-cover" href={href} ariaLabel={`Открыть проект ${project.title}`}>
+          <InternalLink
+            className={`project-cover${project.slug === "course-editor" ? " project-cover--unclipped" : ""}`}
+            href={href}
+            ariaLabel={`Открыть проект ${project.title}`}
+          >
             {project.slug === "course-editor" ? (
               <img className="project-cover-single" src={project.image} alt={`Интерфейс проекта ${project.title}`} />
             ) : (
