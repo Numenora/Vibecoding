@@ -85,6 +85,7 @@ const projects = [
     description: "Как исследование флоу покупки и две итерации дизайна помогли упростить чекаут, устранить просадку первого шага и увеличить конверсию в оплату на десктопе.",
     highlight: "+16,4% к конверсии в оплату",
     image: "/projects/Checkout.png",
+    video: "/projects/Checkout.mp4",
     caseSections: [
       {
         title: "Контекст",
