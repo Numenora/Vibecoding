@@ -159,9 +159,7 @@ function Project({ project }: { project: (typeof projects)[number] }) {
           {meta}
           <InternalLink className="project-cover" href={href} ariaLabel={`Открыть проект ${project.title}`}>
             {project.slug === "course-editor" ? (
-              <div className="project-cover-single">
-                <img src={project.image} alt={`Интерфейс проекта ${project.title}`} />
-              </div>
+              <img className="project-cover-single" src={project.image} alt={`Интерфейс проекта ${project.title}`} />
             ) : (
               <img src={project.image} alt={`Обложка проекта ${project.title}`} />
             )}
