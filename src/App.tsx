@@ -200,6 +200,11 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
   const backSlug = backHref.match(/^\/projects\/([^/?#]+)/)?.[1];
   const backProject = projects.find((item) => item.slug === backSlug || ("legacySlugs" in item && item.legacySlugs?.includes(backSlug ?? "")));
   const backLabel = backProject?.title ?? "Главная";
+  const caseSections = "caseSections" in project && project.caseSections ? project.caseSections : [
+    { title: "Задача", text: "Описание проекта будет добавлено позже." },
+    { title: "Подход", text: "Описание процесса будет добавлено позже." },
+    { title: "Результат", text: "Результаты проекта будут добавлены позже." },
+  ];
 
   return (
     <main className="case-page">
@@ -216,20 +221,20 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
       {project.image && <img className={`case-cover${project.slug === "course-editor" ? " case-cover--editor" : ""}`} src={project.image} alt={`Обложка проекта ${project.title}`} />}
 
       <section className="case-content" aria-label="Описание кейса">
-        {"caseSections" in project && project.caseSections ? project.caseSections.map((section, sectionIndex) => (
-          <div key={section.title}>
+        {caseSections.map((section, sectionIndex) => (
+          <div id={`case-section-${sectionIndex + 1}`} key={section.title}>
             <span>{String(sectionIndex + 1).padStart(2, "0")}</span>
             <h2>{section.title}</h2>
             <p>{section.text}</p>
           </div>
-        )) : (
-          <>
-            <div><span>01</span><h2>Задача</h2><p>Описание проекта будет добавлено позже.</p></div>
-            <div><span>02</span><h2>Подход</h2><p>Описание процесса будет добавлено позже.</p></div>
-            <div><span>03</span><h2>Результат</h2><p>Результаты проекта будут добавлены позже.</p></div>
-          </>
-        )}
+        ))}
       </section>
+
+      <nav className="case-anchor-nav" aria-label="Разделы кейса">
+        {caseSections.map((section, sectionIndex) => (
+          <a href={`#case-section-${sectionIndex + 1}`} key={section.title}>{section.title}</a>
+        ))}
+      </nav>
 
       <nav className="case-navigation" aria-label="Навигация между проектами">
         <InternalLink href={backHref}>
