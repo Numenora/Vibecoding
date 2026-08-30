@@ -72,7 +72,7 @@ const projects = [
     slug: "checkout-redesign",
     legacySlugs: ["city-after-dark"],
     number: "03",
-    title: "Редизайн чекаута",
+    title: "Флоу покупки",
     discipline: "Product design · Growth",
     year: "2025",
     description: "Как исследование флоу покупки и две итерации дизайна помогли упростить чекаут, устранить просадку первого шага и увеличить конверсию в оплату на десктопе.",
