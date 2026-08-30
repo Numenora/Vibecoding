@@ -1,4 +1,4 @@
-import { type MouseEvent, useEffect, useRef, useState } from "react";
+import { type MouseEvent, useEffect, useState } from "react";
 
 const projects = [
   {
@@ -138,95 +138,6 @@ function ProjectResult({ project, compact = false }: { project: (typeof projects
   );
 }
 
-function CursorParticles() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const hero = canvas?.parentElement;
-    const context = canvas?.getContext("2d");
-    if (!canvas || !hero || !context || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    type Particle = { x: number; y: number; vx: number; vy: number; radius: number; life: number; decay: number };
-    const particles: Particle[] = [];
-    let frame = 0;
-    let width = 0;
-    let height = 0;
-
-    const resize = () => {
-      const rect = hero.getBoundingClientRect();
-      const density = Math.min(window.devicePixelRatio || 1, 2);
-      width = rect.width;
-      height = rect.height;
-      canvas.width = Math.round(width * density);
-      canvas.height = Math.round(height * density);
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      context.setTransform(density, 0, 0, density, 0, 0);
-    };
-
-    const addParticles = (event: PointerEvent) => {
-      if (event.pointerType === "touch") return;
-      const rect = hero.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-
-      for (let index = 0; index < 5; index += 1) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = 0.25 + Math.random() * 1.15;
-        particles.push({
-          x: x + (Math.random() - 0.5) * 8,
-          y: y + (Math.random() - 0.5) * 8,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 0.15,
-          radius: 0.6 + Math.random() * 1.8,
-          life: 1,
-          decay: 0.018 + Math.random() * 0.018,
-        });
-      }
-
-      if (particles.length > 160) particles.splice(0, particles.length - 160);
-    };
-
-    const draw = () => {
-      context.clearRect(0, 0, width, height);
-      for (let index = particles.length - 1; index >= 0; index -= 1) {
-        const particle = particles[index];
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-        particle.vx *= 0.985;
-        particle.vy = particle.vy * 0.985 + 0.008;
-        particle.life -= particle.decay;
-
-        if (particle.life <= 0) {
-          particles.splice(index, 1);
-          continue;
-        }
-
-        context.beginPath();
-        context.arc(particle.x, particle.y, particle.radius * particle.life, 0, Math.PI * 2);
-        context.fillStyle = `rgba(17, 17, 17, ${particle.life * 0.55})`;
-        context.fill();
-      }
-      frame = window.requestAnimationFrame(draw);
-    };
-
-    const resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(hero);
-    hero.addEventListener("pointermove", addParticles);
-    resize();
-    frame = window.requestAnimationFrame(draw);
-
-    return () => {
-      resizeObserver.disconnect();
-      hero.removeEventListener("pointermove", addParticles);
-      window.cancelAnimationFrame(frame);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="case-particles" aria-hidden="true" />;
-}
-
 function Project({ project }: { project: (typeof projects)[number] }) {
   const href = `/projects/${project.slug}`;
   return (
@@ -298,7 +209,6 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
   return (
     <main className="case-page">
       <section className="case-hero">
-        <CursorParticles />
         <div className="case-heading">
           <h1>{project.title}</h1>
           <ProjectResult project={project} />
