@@ -98,7 +98,7 @@ const projects = [
     title: "Флоу покупки",
     discipline: "Product design · Growth",
     year: "2025",
-    description: "Как исследование флоу покупки и две итерации дизайна помогли упростить чекаут, устранить просадку первого шага и увеличить конверсию в оплату на десктопе.",
+    description: "Как исследование флоу покупки и одна итерация дизайна помогли упростить чекаут и увеличить конверсию в оплату на десктопе.",
     highlight: "+16,4% к конверсии в оплату",
     image: "/projects/Checkout.png",
     video: "/projects/Checkout.mp4",
@@ -106,22 +106,20 @@ const projects = [
       {
         title: "Контекст",
         text: "Покупка курса состояла из множества шагов и сообщений, которые не всегда согласовывались между собой. На чекауте пользователю было сложно сопоставить тарифы, понять условия и уверенно перейти к оплате. Накопление небольших непонятностей создавало риск выхода из сценария.",
+        images: ["/projects/Checkout_old0.png", "/projects/Checkout_old1.png", "/projects/Checkout_old2.png"],
       },
       {
         title: "Моя роль",
         text: "Я исследовал путь покупки, собирал результаты предыдущих исследований и экспериментов, фиксировал проблемы в CJM и переводил их в гипотезы. Затем оценивал потенциальный вклад изменений и вместе с командой приоритизировал решения для чекаута.",
       },
       {
-        title: "Первая итерация",
-        text: "Новый чекаут сделал выбор способа оплаты понятнее: конверсия со второго экрана в оплату выросла на 13,3%. При этом первый экран работал хуже прежнего — переход к следующему шагу снизился на 10,8%. Общий эффект оказался смешанным, поэтому решение не стали масштабировать без изменений.",
-      },
-      {
-        title: "Пересборка решения",
-        text: "Мы приблизили первый экран к знакомой пользователям структуре: вернули явное отображение цен и скидок, уточнили названия CTA, добавили индикацию шагов и переработали описание тарифов. При этом сохранили удачные решения последующих экранов.",
+        title: "Решение",
+        text: "Мы собрали чекаут в понятный последовательный сценарий: сделали цены и скидки заметнее, уточнили названия CTA, добавили индикацию шагов и переработали описание тарифов. Пользователь сразу видел условия покупки, мог уверенно выбрать способ оплаты и пройти путь без лишних отвлечений.",
       },
       {
         title: "Результат",
-        text: "После перезапуска конверсия с первого экрана на второй выросла на 4,61%, а с финального шага в оплату — на 7,5%. На десктопе конверсия из посещения чекаута в оплату выросла на 16,4%. Общий прирост составил 9%, но ещё не достиг статистической значимости; успешную версию масштабировали на основные направления.",
+        text: "После запуска конверсия с первого экрана на второй выросла на 4,61%, а с финального шага в оплату — на 7,5%. На десктопе конверсия из посещения чекаута в оплату выросла на 16,4%, после чего решение масштабировали на основные направления.",
+        showImage: false,
       },
     ],
   },
@@ -217,6 +215,59 @@ function HoverVideo({ src, className, ariaLabel }: { src: string; className: str
       onPointerLeave={stop}
       aria-label={ariaLabel}
     />
+  );
+}
+
+function CaseImageSlider({ images, title, resolveSrc, onOpen }: {
+  images: string[];
+  title: string;
+  resolveSrc: (src: string) => string;
+  onOpen: (src: string, alt: string) => void;
+}) {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  const scrollToSlide = (index: number) => {
+    const slider = sliderRef.current;
+    const slide = slider?.querySelector<HTMLElement>(`[data-slide-index="${index}"]`);
+    if (!slider || !slide) return;
+    slider.scrollTo({ left: slide.offsetLeft - 16, behavior: "smooth" });
+    setActiveSlide(index);
+  };
+
+  const updateActiveSlide = () => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+    const center = slider.scrollLeft + slider.clientWidth / 2;
+    const slides = Array.from(slider.querySelectorAll<HTMLElement>("[data-slide-index]"));
+    const nearest = slides.reduce((best, slide, index) => {
+      const distance = Math.abs(slide.offsetLeft + slide.offsetWidth / 2 - center);
+      return distance < best.distance ? { index, distance } : best;
+    }, { index: 0, distance: Number.POSITIVE_INFINITY });
+    setActiveSlide(nearest.index);
+  };
+
+  return (
+    <div className="case-slider-wrap">
+      <div className="case-slider" ref={sliderRef} onScroll={updateActiveSlide}>
+        <div className="case-slider-track">
+          {images.map((image, index) => {
+            const alt = `${title}, экран ${index + 1}`;
+            const src = resolveSrc(image);
+            return (
+              <button className="case-slider-slide" type="button" data-slide-index={index} key={image} onClick={() => onOpen(src, alt)} aria-label={`Увеличить: ${alt}`}>
+                <img src={src} alt={alt} />
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div className="case-slider-dots" aria-label="Навигация по изображениям">
+        {images.map((_, index) => (
+          <button className={index === activeSlide ? "is-active" : ""} type="button" key={index} onClick={() => scrollToSlide(index)} aria-label={`Показать изображение ${index + 1}`} />
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -337,8 +388,9 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
       <section className="case-content" aria-label="Описание кейса">
         {caseSections.map((section, sectionIndex) => {
           const sectionImage = "image" in section && typeof section.image === "string" ? section.image : undefined;
+          const sectionImages = "images" in section && Array.isArray(section.images) ? section.images.filter((image): image is string => typeof image === "string") : [];
           const sectionCaption = "caption" in section && typeof section.caption === "string" ? section.caption : undefined;
-          const showPlaceholder = !("showImage" in section && section.showImage === false) && !sectionImage;
+          const showPlaceholder = !("showImage" in section && section.showImage === false) && !sectionImage && sectionImages.length === 0;
 
           return (
             <div className="case-section" id={`case-section-${sectionIndex + 1}`} key={section.title}>
@@ -346,7 +398,9 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
                 <h2>{section.title}</h2>
                 <p>{section.text}</p>
               </div>
-              {sectionImage ? (
+              {sectionImages.length > 0 ? (
+                <CaseImageSlider images={sectionImages} title={section.title} resolveSrc={withMediaVersion} onOpen={(src, alt) => setLightboxImage({ src, alt })} />
+              ) : sectionImage ? (
                 <figure className="case-section-figure">
                   <button className="case-section-image-button" type="button" onClick={() => setLightboxImage({ src: withMediaVersion(sectionImage), alt: `Изображение раздела «${section.title}»` })} aria-label={`Увеличить изображение раздела «${section.title}»`}>
                     <img className="case-section-image" src={withMediaVersion(sectionImage)} alt={`Изображение раздела «${section.title}»`} />
