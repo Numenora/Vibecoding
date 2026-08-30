@@ -221,8 +221,8 @@ function SiteFooter() {
   return (
     <footer className="case-footer">
       <p>
-        Available for full/part-time and collaborations.<br />
-        Based in Serbia, working worldwide. <a href="mailto:ya.love.google@yandex.ru">Let’s collaborate.</a>
+        Открыт к полной или частичной занятости и сотрудничеству.<br />
+        Живу в Сербии, работаю по всему миру. <a href="https://t.me/a_suhov">Давайте поработаем вместе.</a>
       </p>
       <div className="case-footer-bottom">
         <nav aria-label="Social links">
