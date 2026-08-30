@@ -12,7 +12,6 @@ const projects = [
     highlight: "−43% задач контент-администраторов · −24% COS",
     image: "/projects/Editor.png",
     video: "/projects/Editor.mp4",
-    mockup: "/projects/Editor-macbook.png",
     caseSections: [
       {
         title: "Контекст",
@@ -142,7 +141,6 @@ function ProjectResult({ project, compact = false }: { project: (typeof projects
 
 function Project({ project }: { project: (typeof projects)[number] }) {
   const href = `/projects/${project.slug}`;
-  const mockup = "mockup" in project ? project.mockup : "";
   const hasCover = Boolean(project.image);
 
   const meta = (
@@ -160,14 +158,9 @@ function Project({ project }: { project: (typeof projects)[number] }) {
         <div className="project-card">
           {meta}
           <InternalLink className="project-cover" href={href} ariaLabel={`Открыть проект ${project.title}`}>
-            {mockup ? (
-              <div className="project-cover-grid">
-                <div className="project-cover-tile project-cover-tile--editor">
-                  <img src={project.image} alt={`Интерфейс проекта ${project.title}`} />
-                </div>
-                <div className="project-cover-tile project-cover-tile--mockup">
-                  <img src={mockup} alt={`Интерфейс проекта ${project.title} на макбуке`} />
-                </div>
+            {project.slug === "course-editor" ? (
+              <div className="project-cover-single">
+                <img src={project.image} alt={`Интерфейс проекта ${project.title}`} />
               </div>
             ) : (
               <img src={project.image} alt={`Обложка проекта ${project.title}`} />
