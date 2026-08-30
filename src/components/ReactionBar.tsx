@@ -37,6 +37,7 @@ export function ReactionBar({ projectSlug, variant }: { projectSlug: string; var
   const [userId, setUserId] = useState<string | null>(null);
   const [busy, setBusy] = useState<Reaction | null>(null);
   const [error, setError] = useState(false);
+  const [flyingReaction, setFlyingReaction] = useState<{ emoji: Reaction; id: number } | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -72,6 +73,13 @@ export function ReactionBar({ projectSlug, variant }: { projectSlug: string; var
     const wasSelected = selected.has(emoji);
     setBusy(emoji);
     setError(false);
+    if (!wasSelected && variant === "case") {
+      const flight = { emoji, id: Date.now() };
+      setFlyingReaction(flight);
+      window.setTimeout(() => {
+        setFlyingReaction((current) => current?.id === flight.id ? null : current);
+      }, 760);
+    }
     setSelected((current) => {
       const next = new Set(current);
       wasSelected ? next.delete(emoji) : next.add(emoji);
@@ -118,6 +126,9 @@ export function ReactionBar({ projectSlug, variant }: { projectSlug: string; var
         >
           <span className="reaction-emoji" aria-hidden="true">{emoji}</span>
           <span className="reaction-count">{counts[emoji]}</span>
+          {flyingReaction?.emoji === emoji && (
+            <span key={flyingReaction.id} className="reaction-flight" aria-hidden="true">{emoji}</span>
+          )}
         </button>
       ))}
       {error && <span className="reaction-error" role="status">Не удалось сохранить</span>}
