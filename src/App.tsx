@@ -1,4 +1,5 @@
 import { type MouseEvent, useEffect, useRef, useState } from "react";
+import { ReactionBar } from "./components/ReactionBar";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 
@@ -185,6 +186,7 @@ function Project({ project }: { project: (typeof projects)[number] }) {
           >
             <img className="project-cover-single" src={withBase(project.image)} alt={`Интерфейс проекта ${project.title}`} />
           </InternalLink>
+          <ReactionBar projectSlug={project.slug} variant="compact" />
         </div>
       ) : meta}
     </article>
@@ -220,7 +222,14 @@ function HomePage() {
   return (
     <main className="home-page">
       <section className="intro" aria-labelledby="intro-title">
-        <h1 id="intro-title">Старший продуктовый дизайнер с опытом более 10 лет. Развиваю цифровые продукты: проверяю гипотезы, работаю с метриками, выстраиваю дизайн-процессы и внедряю ИИ.</h1>
+        <div className="intro-content">
+          <h1 id="intro-title">Старший продуктовый дизайнер с опытом более 10 лет. Работал в ПИК, Яндексе и MadRobots. Развиваю цифровые продукты: проверяю гипотезы, работаю с метриками, выстраиваю дизайн-процессы и внедряю ИИ.</h1>
+          <ul className="company-logos" aria-label="Компании, в которых я работал">
+            <li><a className="company-logo" data-company="ПИК" href="https://pik-arenda.ru/" target="_blank" rel="noreferrer" aria-label="ПИК"><img src={withBase("/projects/Pik.png")} alt="" /></a></li>
+            <li><a className="company-logo" data-company="Яндекс" href="https://practicum.yandex.ru/" target="_blank" rel="noreferrer" aria-label="Яндекс"><img src={withBase("/projects/Yandex.png")} alt="" /></a></li>
+            <li><a className="company-logo" data-company="MadRobots" href="https://madrobots.ru" target="_blank" rel="noreferrer" aria-label="MadRobots"><img src={withBase("/projects/Madrobots.png")} alt="" /></a></li>
+          </ul>
+        </div>
       </section>
       <section className="work" id="work" aria-label="Избранные проекты">
         {projects.map((project) => <Project project={project} key={project.number} />)}
@@ -234,8 +243,8 @@ function SiteFooter() {
   return (
     <footer className="case-footer">
       <p>
-        Открыт к полной или частичной занятости и сотрудничеству.<br />
-        Живу в Сербии, работаю по всему миру. <a href="https://t.me/a_suhov">Давайте поработаем вместе.</a>
+        Открыт к сотрудничеству.<br />
+        Живу в Тбилиси, работаю по всему миру. <a href="https://t.me/a_suhov">Давайте поработаем вместе.</a>
       </p>
       <div className="case-footer-bottom">
         <nav aria-label="Social links">
@@ -350,11 +359,7 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
         })}
       </section>
 
-      <nav className="case-anchor-nav" aria-label="Разделы кейса">
-        {caseSections.map((section, sectionIndex) => (
-          <a href={`#case-section-${sectionIndex + 1}`} key={section.title}>{section.title}</a>
-        ))}
-      </nav>
+      <ReactionBar projectSlug={project.slug} variant="case" />
 
       <nav className="case-navigation" aria-label="Навигация между проектами">
         <InternalLink href={backHref}>
