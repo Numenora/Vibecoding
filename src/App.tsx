@@ -16,22 +16,27 @@ const projects = [
       {
         title: "Контекст",
         text: "Авторы готовили курсы в привычных инструментах — Notion, Wiki и других редакторах. Затем контент-менеджеры вручную переносили материалы в админку Практикума, а методисты, дизайнеры и другие специалисты подключались к работе через отдельные тикеты.",
+        showImage: false,
       },
       {
         title: "Проблема",
         text: "Производство курса состояло из множества передач между людьми и системами. В процессе была отдельно выделена роль контент-администраторов, которые занимались только переносом материалов из авторских черновиков в админку. Команда тратила время на повторную сборку уже созданного контента, согласования растягивались, а исходные материалы и их версии хранились в разных местах.",
+        image: "/projects/Editor-problem.png",
       },
       {
         title: "Решение",
         text: "Мы спроектировали Notion-like редактор внутри админки и сделали её единой точкой входа для всей команды. Авторы смогли собирать курс сразу в продуктовой среде, включая сложные блоки тренажёров, а методисты и дизайнеры — обсуждать изменения в контексте через комментарии и упоминания.",
+        image: "/projects/Editor.png",
       },
       {
         title: "Что изменилось",
         text: "Из процесса исчез отдельный этап ручного переноса материалов. Контент-администраторы больше не переносят авторские черновики в админку и занимаются только финальной настройкой уроков перед запуском профессий в прод. Актуальный контент хранится в одном месте, а участники быстрее подключаются к работе в общем контексте.",
+        showImage: false,
       },
       {
         title: "Результат",
         text: "Количество задач для контент-администраторов уменьшилось на 43%, а COS сократился на 24%.",
+        showImage: false,
       },
     ],
   },
@@ -264,7 +269,7 @@ function ImageLightbox({ src, alt, onClose }: { src: string; alt: string; onClos
 }
 
 function CasePage({ project }: { project: (typeof projects)[number] }) {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null);
   const index = projects.indexOf(project);
   const next = projects[(index + 1) % projects.length];
   const storedFrom = typeof window.history.state?.from === "string" ? window.history.state.from : "";
@@ -299,21 +304,32 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
           ariaLabel={`Видео проекта ${project.title}`}
         />
       ) : project.image && (
-        <button className="case-cover-button" type="button" onClick={() => setLightboxOpen(true)} aria-label={`Увеличить обложку проекта ${project.title}`}>
+        <button className="case-cover-button" type="button" onClick={() => setLightboxImage({ src: project.image, alt: `Обложка проекта ${project.title}` })} aria-label={`Увеличить обложку проекта ${project.title}`}>
           <img className={`case-cover${project.slug === "course-editor" ? " case-cover--editor" : ""}`} src={project.image} alt={`Обложка проекта ${project.title}`} />
         </button>
       )}
 
       <section className="case-content" aria-label="Описание кейса">
-        {caseSections.map((section, sectionIndex) => (
-          <div className="case-section" id={`case-section-${sectionIndex + 1}`} key={section.title}>
-            <div className="case-section-copy">
-              <h2>{section.title}</h2>
-              <p>{section.text}</p>
+        {caseSections.map((section, sectionIndex) => {
+          const sectionImage = "image" in section && typeof section.image === "string" ? section.image : undefined;
+          const showPlaceholder = !("showImage" in section && section.showImage === false) && !sectionImage;
+
+          return (
+            <div className="case-section" id={`case-section-${sectionIndex + 1}`} key={section.title}>
+              <div className="case-section-copy">
+                <h2>{section.title}</h2>
+                <p>{section.text}</p>
+              </div>
+              {sectionImage ? (
+                <button className="case-section-image-button" type="button" onClick={() => setLightboxImage({ src: sectionImage, alt: `Изображение раздела «${section.title}»` })} aria-label={`Увеличить изображение раздела «${section.title}»`}>
+                  <img className="case-section-image" src={sectionImage} alt={`Изображение раздела «${section.title}»`} />
+                </button>
+              ) : showPlaceholder ? (
+                <div className="case-section-placeholder" role="img" aria-label={`Место для изображения раздела «${section.title}»`} />
+              ) : null}
             </div>
-            <div className="case-section-placeholder" role="img" aria-label={`Место для изображения раздела «${section.title}»`} />
-          </div>
-        ))}
+          );
+        })}
       </section>
 
       <nav className="case-anchor-nav" aria-label="Разделы кейса">
@@ -335,8 +351,8 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
 
       <SiteFooter />
 
-      {lightboxOpen && project.image && (
-        <ImageLightbox src={project.image} alt={`Обложка проекта ${project.title}`} onClose={() => setLightboxOpen(false)} />
+      {lightboxImage && (
+        <ImageLightbox src={lightboxImage.src} alt={lightboxImage.alt} onClose={() => setLightboxImage(null)} />
       )}
     </main>
   );

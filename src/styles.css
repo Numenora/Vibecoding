@@ -365,6 +365,23 @@ video.case-cover--editor { cursor: default; }
   background: #efefef;
 }
 
+.case-section-image-button {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  display: block;
+  background: none;
+  cursor: zoom-in;
+}
+
+.case-section-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.70), 0 20px 50px 0 rgba(0, 0, 0, 0.16);
+}
+
 .case-anchor-nav {
   position: fixed;
   z-index: 15;
