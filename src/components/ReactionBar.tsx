@@ -70,6 +70,7 @@ export function ReactionBar({ projectSlug, variant }: { projectSlug: string; var
 
   const toggle = async (emoji: Reaction) => {
     if (busy) return;
+    const previousSelection = reactions.filter((reaction) => selected.has(reaction));
     const wasSelected = selected.has(emoji);
     setBusy(emoji);
     setError(false);
@@ -80,12 +81,15 @@ export function ReactionBar({ projectSlug, variant }: { projectSlug: string; var
         setFlyingReaction((current) => current?.id === flight.id ? null : current);
       }, 1180);
     }
-    setSelected((current) => {
-      const next = new Set(current);
-      wasSelected ? next.delete(emoji) : next.add(emoji);
+    setSelected(wasSelected ? new Set() : new Set([emoji]));
+    setCounts((current) => {
+      const next = { ...current };
+      previousSelection.forEach((reaction) => {
+        next[reaction] = Math.max(0, next[reaction] - 1);
+      });
+      if (!wasSelected) next[emoji] += 1;
       return next;
     });
-    setCounts((current) => ({ ...current, [emoji]: Math.max(0, current[emoji] + (wasSelected ? -1 : 1)) }));
 
     if (!supabase) {
       setBusy(null);
@@ -94,18 +98,29 @@ export function ReactionBar({ projectSlug, variant }: { projectSlug: string; var
 
     try {
       const activeUserId = (await ensureAnonymousUser(supabase)).id;
-      const result = wasSelected
-        ? await supabase.from("project_reactions").delete().eq("project_slug", projectSlug).eq("emoji", emoji).eq("user_id", activeUserId)
-        : await supabase.from("project_reactions").insert({ project_slug: projectSlug, emoji, user_id: activeUserId });
-      if (result.error) throw result.error;
+      const deleteResult = await supabase
+        .from("project_reactions")
+        .delete()
+        .eq("project_slug", projectSlug)
+        .eq("user_id", activeUserId);
+      if (deleteResult.error) throw deleteResult.error;
+      if (!wasSelected) {
+        const insertResult = await supabase
+          .from("project_reactions")
+          .insert({ project_slug: projectSlug, emoji, user_id: activeUserId });
+        if (insertResult.error) throw insertResult.error;
+      }
       setUserId(activeUserId);
     } catch {
-      setSelected((current) => {
-        const next = new Set(current);
-        wasSelected ? next.add(emoji) : next.delete(emoji);
+      setSelected(new Set(previousSelection));
+      setCounts((current) => {
+        const next = { ...current };
+        previousSelection.forEach((reaction) => {
+          next[reaction] += 1;
+        });
+        if (!wasSelected) next[emoji] = Math.max(0, next[emoji] - 1);
         return next;
       });
-      setCounts((current) => ({ ...current, [emoji]: Math.max(0, current[emoji] + (wasSelected ? 1 : -1)) }));
       setError(true);
     } finally {
       setBusy(null);
