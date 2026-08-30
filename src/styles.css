@@ -85,9 +85,43 @@ main { padding: 0 var(--page); }
 .project-type { text-transform: uppercase; font-size: 9px; }
 .project-description { max-width: 340px; }
 .project-meta > a { border-bottom: 1px solid currentColor; white-space: nowrap; }
-.project-cover { display: block; overflow: hidden; border-radius: 10px; background: #eee; box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.70), 0 20px 50px 0 rgba(0, 0, 0, 0.16); }
+.project-card {
+  position: relative;
+  aspect-ratio: 2.22 / 1;
+  overflow: hidden;
+  background: #f1f1f1;
+}
+.project-card .project-meta {
+  position: relative;
+  z-index: 2;
+  border-bottom: 0;
+  padding-inline: 24px;
+}
+.project-cover { display: block; overflow: hidden; border-radius: 10px; background: #eee; }
 .project-cover img { display: block; width: 100%; aspect-ratio: 2.22 / 1; object-fit: cover; transition: transform 500ms cubic-bezier(0.2, 0.75, 0.25, 1); }
 .project-cover:hover img, .project-cover:focus-visible img { transform: scale(1.012); }
+.project-card .project-cover {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 0;
+  background: transparent;
+}
+.project-card .project-cover img {
+  position: absolute;
+  left: 50%;
+  bottom: -20%;
+  width: min(68%, 1320px);
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.70), 0 20px 50px 0 rgba(0, 0, 0, 0.16);
+  transform: translateX(-50%);
+}
+.project-card .project-cover:hover img,
+.project-card .project-cover:focus-visible img { transform: translateX(-50%) scale(1.012); }
 
 .case-page {
   padding-top: 0;
@@ -425,6 +459,9 @@ main { padding: 0 var(--page); }
   .project-type, .project-description, .project-meta > a { grid-column: 2; }
   .project-meta > a { grid-row: auto; justify-self: start; }
   .project-cover img { aspect-ratio: 1.32 / 1; }
+  .project-card { aspect-ratio: 1.32 / 1; }
+  .project-card .project-meta { padding-inline: 14px; }
+  .project-card .project-cover img { width: 90%; aspect-ratio: auto; }
   .case-hero { min-height: calc(100svh - 38px); }
   .case-heading { gap: 16px; }
   .case-heading h1 { font-size: 24px; }

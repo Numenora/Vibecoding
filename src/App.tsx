@@ -140,19 +140,25 @@ function ProjectResult({ project, compact = false }: { project: (typeof projects
 
 function Project({ project }: { project: (typeof projects)[number] }) {
   const href = `/projects/${project.slug}`;
+  const meta = (
+    <div className="project-meta">
+      <span>{project.number}</span>
+      <h2><InternalLink href={href}>{project.title}</InternalLink></h2>
+      <div className="project-type-spacer" aria-hidden="true" />
+      <ProjectResult project={project} compact />
+    </div>
+  );
+
   return (
     <article className="project" id={`project-${project.number}`}>
-      <div className="project-meta">
-        <span>{project.number}</span>
-        <h2><InternalLink href={href}>{project.title}</InternalLink></h2>
-        <div className="project-type-spacer" aria-hidden="true" />
-        <ProjectResult project={project} compact />
-      </div>
-      {project.image && (
-        <InternalLink className="project-cover" href={href} ariaLabel={`Открыть проект ${project.title}`}>
-          <img src={project.image} alt={`Обложка проекта ${project.title}`} />
-        </InternalLink>
-      )}
+      {project.image ? (
+        <div className="project-card">
+          {meta}
+          <InternalLink className="project-cover" href={href} ariaLabel={`Открыть проект ${project.title}`}>
+            <img src={project.image} alt={`Обложка проекта ${project.title}`} />
+          </InternalLink>
+        </div>
+      ) : meta}
     </article>
   );
 }
