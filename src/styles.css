@@ -104,14 +104,18 @@ main {
 .project-card .project-meta {
   position: relative;
   z-index: 2;
+  min-height: 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(260px, 1fr);
   gap: 32px;
   border: 0;
-  padding-inline: 24px;
+  padding: 16px;
   text-align: left;
 }
-.project-card .project-meta > span { position: absolute; top: 24px; left: 24px; }
+.project-card .project-meta > span { position: absolute; top: 16px; left: 16px; }
+.project-card .project-meta > span,
+.project-card .project-meta h2,
+.project-card .project-description { font-size: 14px; line-height: 1.3; }
 .project-card .project-meta h2 { justify-self: start; margin-left: 40px; }
 .project-card .project-description { justify-self: end; max-width: 420px; text-align: right; }
 .project-cover { display: block; overflow: hidden; border-radius: 10px; background: #eee; }
@@ -528,9 +532,10 @@ main {
   .project-meta > span { top: 14px; left: 14px; }
   .project-meta h2 { font-size: 23px; }
   .project-cover img, .project-cover video { aspect-ratio: 1.32 / 1; }
-  .project-card .project-meta { grid-template-columns: 1fr 1fr; gap: 16px; padding-inline: 14px; }
-  .project-card .project-meta > span { top: 14px; left: 14px; }
-  .project-card .project-meta h2 { margin-left: 28px; }
+  .project-card .project-meta { grid-template-columns: 1fr 1fr; gap: 16px; padding: 16px; }
+  .project-card .project-meta > span { top: 16px; left: 16px; }
+  .project-card .project-meta h2 { margin-left: 28px; font-size: 14px; }
+  .project-card .project-description { font-size: 14px; }
   .project-card .project-description { max-width: 180px; }
   .project-card .project-cover img,
   .project-card .project-cover video { width: 100%; aspect-ratio: auto; }
