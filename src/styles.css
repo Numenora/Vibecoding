@@ -175,6 +175,7 @@ main {
 }
 
 .case-page > .case-hero,
+.case-page > .case-summary,
 .case-page > .case-cover-button,
 .case-page > .case-cover,
 .case-page > .case-content {
@@ -196,7 +197,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 22px;
+  gap: 8px;
 }
 
 .case-heading h1 {
@@ -208,10 +209,8 @@ main {
 }
 
 .case-summary {
-  position: absolute;
-  left: 0;
-  bottom: 48px;
-  width: min(760px, 62%);
+  width: 100%;
+  padding-bottom: 48px;
   text-align: left;
 }
 
@@ -524,7 +523,7 @@ video.case-cover--editor { cursor: default; }
   .case-hero { min-height: 430px; }
   .case-heading { gap: 16px; }
   .case-heading h1 { font-size: 24px; }
-  .case-summary { bottom: 36px; width: 100%; }
+  .case-summary { width: 100%; }
   .case-cover { aspect-ratio: 1.32 / 1; }
   .case-cover--editor { aspect-ratio: auto; }
   .image-lightbox { padding: 56px 10px 10px; }

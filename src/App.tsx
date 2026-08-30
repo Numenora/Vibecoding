@@ -286,10 +286,11 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
           <h1>{project.title}</h1>
           <ProjectResult project={project} />
         </div>
-        <div className="case-summary" aria-label="Краткое описание проекта">
-          <p>{project.description}</p>
-        </div>
       </section>
+
+      <div className="case-summary" aria-label="Краткое описание проекта">
+        <p>{project.description}</p>
+      </div>
 
       {"video" in project && project.video ? (
         <HoverVideo
