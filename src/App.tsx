@@ -175,11 +175,10 @@ function Project({ project }: { project: (typeof projects)[number] }) {
               <video
                 ref={videoRef}
                 src={video}
-                poster={project.image}
                 muted
                 loop
                 playsInline
-                preload="metadata"
+                preload="auto"
                 aria-label={`Видеообложка проекта ${project.title}`}
               />
             ) : (
