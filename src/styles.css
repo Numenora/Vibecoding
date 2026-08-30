@@ -64,10 +64,9 @@ main { padding: 0 var(--page); }
   text-align: center;
   font-size: clamp(18px, 1.55vw, 25px);
   line-height: 1.25;
-  letter-spacing: -0.025em;
   font-weight: 500;
 }
-.intro > p { margin: 64px 0 0; font-size: 10px; line-height: 1; letter-spacing: 0.11em; text-transform: uppercase; }
+.intro > p { margin: 64px 0 0; font-size: 10px; line-height: 1; text-transform: uppercase; }
 .work { border-top: 1px solid var(--line); }
 .project { scroll-margin-top: 24px; }
 .project-meta {
@@ -79,9 +78,9 @@ main { padding: 0 var(--page); }
   border-bottom: 1px solid var(--line);
 }
 .project-meta > span, .project-type, .project-description, .project-meta > a { font-size: 12px; line-height: 1.45; }
-.project-meta h2 { margin: 0; font-size: clamp(22px, 2vw, 32px); line-height: 1; letter-spacing: -0.035em; font-weight: 400; }
+.project-meta h2 { margin: 0; font-size: clamp(22px, 2vw, 32px); line-height: 1; font-weight: 400; }
 .project-meta p { margin: 0; }
-.project-type { text-transform: uppercase; letter-spacing: 0.05em; font-size: 9px; }
+.project-type { text-transform: uppercase; font-size: 9px; }
 .project-description { max-width: 340px; }
 .project-meta > a { border-bottom: 1px solid currentColor; white-space: nowrap; }
 .project-cover { display: block; overflow: hidden; background: #eee; }
@@ -109,7 +108,6 @@ main { padding: 0 var(--page); }
   max-width: 720px;
   font-size: clamp(56px, 7vw, 112px);
   line-height: 0.9;
-  letter-spacing: -0.065em;
   font-weight: 400;
 }
 
@@ -122,7 +120,6 @@ main { padding: 0 var(--page); }
   margin: 0;
   font-size: clamp(18px, 1.8vw, 28px);
   line-height: 1.28;
-  letter-spacing: -0.025em;
 }
 
 .case-highlight {
@@ -138,14 +135,12 @@ main { padding: 0 var(--page); }
   font-size: 9px;
   line-height: 1;
   text-transform: uppercase;
-  letter-spacing: 0.09em;
 }
 
 .case-highlight strong {
   display: block;
   font-size: clamp(22px, 2.2vw, 34px);
   line-height: 1.05;
-  letter-spacing: -0.04em;
   font-weight: 400;
 }
 
@@ -193,7 +188,6 @@ main { padding: 0 var(--page); }
 
 .case-content h2 {
   font-size: clamp(28px, 3vw, 48px);
-  letter-spacing: -0.04em;
 }
 
 .case-content p {
@@ -227,13 +221,11 @@ main { padding: 0 var(--page); }
 
 .case-navigation span {
   font-size: 11px;
-  letter-spacing: 0;
 }
 
 .case-navigation strong {
   font-size: clamp(14px, 1.2vw, 18px);
   line-height: 1.15;
-  letter-spacing: -0.015em;
   font-weight: 500;
 }
 
@@ -254,7 +246,6 @@ main { padding: 0 var(--page); }
   font-size: clamp(18px, 1.55vw, 25px);
   line-height: 1.25;
   font-weight: 500;
-  letter-spacing: -0.025em;
 }
 
 .case-footer > p a {
@@ -289,7 +280,6 @@ main { padding: 0 var(--page); }
 
 .not-found p {
   font-size: clamp(32px, 5vw, 72px);
-  letter-spacing: -0.05em;
 }
 
 .not-found a {
