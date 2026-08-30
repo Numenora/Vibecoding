@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient, type User } from "@supabase/supabase-js";
 
 const reactions = ["❤️", "🔥", "🌚"] as const;
 type Reaction = (typeof reactions)[number];
@@ -12,13 +12,23 @@ const supabaseKey = env.VITE_SUPABASE_ANON_KEY;
 const supabase: SupabaseClient | null = supabaseUrl && supabaseKey
   ? createClient(supabaseUrl, supabaseKey, { auth: { persistSession: true, autoRefreshToken: true } })
   : null;
+let anonymousUserPromise: Promise<User> | null = null;
 
 async function ensureAnonymousUser(client: SupabaseClient) {
   const { data: sessionData } = await client.auth.getSession();
   if (sessionData.session?.user) return sessionData.session.user;
-  const { data, error } = await client.auth.signInAnonymously();
-  if (error || !data.user) throw error ?? new Error("Anonymous sign-in failed");
-  return data.user;
+
+  if (!anonymousUserPromise) {
+    anonymousUserPromise = client.auth.signInAnonymously().then(({ data, error }) => {
+      if (error || !data.user) throw error ?? new Error("Anonymous sign-in failed");
+      return data.user;
+    }).catch((error) => {
+      anonymousUserPromise = null;
+      throw error;
+    });
+  }
+
+  return anonymousUserPromise;
 }
 
 export function ReactionBar({ projectSlug, variant }: { projectSlug: string; variant: "compact" | "case" }) {
@@ -75,7 +85,7 @@ export function ReactionBar({ projectSlug, variant }: { projectSlug: string; var
     }
 
     try {
-      const activeUserId = userId ?? (await ensureAnonymousUser(supabase)).id;
+      const activeUserId = (await ensureAnonymousUser(supabase)).id;
       const result = wasSelected
         ? await supabase.from("project_reactions").delete().eq("project_slug", projectSlug).eq("emoji", emoji).eq("user_id", activeUserId)
         : await supabase.from("project_reactions").insert({ project_slug: projectSlug, emoji, user_id: activeUserId });
