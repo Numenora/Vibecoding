@@ -51,6 +51,7 @@ const projects = [
     description: "Как новый каталог курсов упростил выбор и дал статистически значимый рост ключевых этапов воронки — от клика по карточке до первого урока.",
     highlight: "+37,77% к подписке · +23,63% к первому уроку",
     image: "/projects/Catalog.png",
+    video: "/projects/Catalog.mp4",
     caseSections: [
       {
         title: "Контекст",
