@@ -96,11 +96,10 @@ main {
 .project-type-spacer { display: none; }
 .project-card {
   position: relative;
-  aspect-ratio: 2.22 / 1;
-  overflow: hidden;
+  overflow: visible;
   border: 0;
   border-radius: 10px;
-  background: #f1f1f1;
+  background: transparent;
 }
 .project-card .project-meta {
   position: relative;
@@ -123,30 +122,28 @@ main {
 .project-cover:focus-visible img,
 .project-cover:focus-visible video { transform: scale(1.012); }
 .project-card .project-cover {
-  position: absolute;
+  position: relative;
   z-index: 1;
-  inset: 0;
+  inset: auto;
   overflow: hidden;
-  border-radius: 0;
+  border-radius: 10px;
   background: transparent;
 }
 .project-card .project-cover img,
 .project-card .project-cover video {
-  position: absolute;
-  left: 50%;
-  bottom: -20%;
-  width: min(68%, 1320px);
+  position: static;
+  width: 100%;
   height: auto;
   aspect-ratio: auto;
   object-fit: contain;
   border-radius: 10px;
   box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.70), 0 20px 50px 0 rgba(0, 0, 0, 0.16);
-  transform: translateX(-50%);
+  transform: none;
 }
 .project-card .project-cover:hover img,
 .project-card .project-cover:hover video,
 .project-card .project-cover:focus-visible img,
-.project-card .project-cover:focus-visible video { transform: translateX(-50%) scale(1.012); }
+.project-card .project-cover:focus-visible video { transform: scale(1.012); }
 
 .case-page {
   padding-top: 0;
@@ -531,13 +528,12 @@ main {
   .project-meta > span { top: 14px; left: 14px; }
   .project-meta h2 { font-size: 23px; }
   .project-cover img, .project-cover video { aspect-ratio: 1.32 / 1; }
-  .project-card { aspect-ratio: 1.32 / 1; }
   .project-card .project-meta { grid-template-columns: 1fr 1fr; gap: 16px; padding-inline: 14px; }
   .project-card .project-meta > span { top: 14px; left: 14px; }
   .project-card .project-meta h2 { margin-left: 28px; }
   .project-card .project-description { max-width: 180px; }
   .project-card .project-cover img,
-  .project-card .project-cover video { width: 90%; aspect-ratio: auto; }
+  .project-card .project-cover video { width: 100%; aspect-ratio: auto; }
   .case-hero { min-height: calc(100svh - 38px); }
   .case-heading { gap: 16px; }
   .case-heading h1 { font-size: 24px; }
