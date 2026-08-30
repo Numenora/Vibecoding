@@ -148,7 +148,6 @@ function Project({ project }: { project: (typeof projects)[number] }) {
         <h2><InternalLink href={href}>{project.title}</InternalLink></h2>
         <div className="project-type-spacer" aria-hidden="true" />
         <ProjectResult project={project} compact />
-        <InternalLink href={href}>Смотреть проект</InternalLink>
       </div>
       {project.image && (
         <InternalLink className="project-cover" href={href} ariaLabel={`Открыть проект ${project.title}`}>

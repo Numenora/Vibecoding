@@ -56,7 +56,7 @@ main { padding: 0 var(--page); }
 .project-meta {
   min-height: 116px;
   display: grid;
-  grid-template-columns: 52px minmax(220px, 1.45fr) minmax(120px, 0.65fr) minmax(250px, 1.35fr) auto;
+  grid-template-columns: 52px minmax(220px, 1.45fr) minmax(120px, 0.65fr) minmax(250px, 1.35fr);
   gap: clamp(18px, 2.4vw, 44px);
   align-items: center;
   border-bottom: 1px solid var(--line);
