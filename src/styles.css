@@ -74,7 +74,7 @@ main {
 }
 .intro > p { margin: 64px 0 0; font-size: 10px; line-height: 1; text-transform: uppercase; }
 .work { border-top: 0; }
-.project { margin-bottom: 80px; scroll-margin-top: 24px; }
+.project { margin-bottom: 120px; scroll-margin-top: 24px; }
 .project-meta {
   position: relative;
   min-height: 116px;
