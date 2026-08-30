@@ -132,7 +132,7 @@ function Header() {
     <header className="site-header">
       <InternalLink href="/">Александр Сухов</InternalLink>
       <InternalLink href="/" className="site-header-home">Главная</InternalLink>
-      <a className="site-header-contact" href="https://t.me/">Telegram</a>
+      <a className="site-header-contact" href="https://t.me/a_suhov">Telegram</a>
     </header>
   );
 }
@@ -222,16 +222,14 @@ function SiteFooter() {
     <footer className="case-footer">
       <p>
         Available for full/part-time and collaborations.<br />
-        Based in Serbia, working worldwide. <a href="mailto:hello@example.com">Let’s collaborate.</a>
+        Based in Serbia, working worldwide. <a href="mailto:ya.love.google@yandex.ru">Let’s collaborate.</a>
       </p>
       <div className="case-footer-bottom">
         <nav aria-label="Social links">
-          <a href="mailto:hello@example.com">Email</a>
-          <a href="https://www.linkedin.com/">Linkedin</a>
-          <a href="https://www.instagram.com/">Instagram</a>
-          <a href="https://www.whatsapp.com/">WhatsApp</a>
+          <a href="mailto:ya.love.google@yandex.ru">Email</a>
+          <a href="https://t.me/a_suhov">Telegram</a>
         </nav>
-        <span>Version 2.1 / © Ann Bittner 2026</span>
+        <span>Завайбкожено в 2026</span>
       </div>
     </footer>
   );
