@@ -202,12 +202,12 @@ main {
   align-items: center;
   padding: 6px 9px;
   border-radius: 999px;
-  background: #f2f2f2;
-  transition: background 160ms ease, transform 160ms ease;
+  background: transparent;
+  transition: opacity 160ms ease, transform 160ms ease;
 }
 .reaction-bar--compact button:hover,
 .reaction-bar--compact button:focus-visible,
-.reaction-bar--compact button.is-selected { background: #e5e5e5; transform: translateY(-1px); }
+.reaction-bar--compact button.is-selected { background: transparent; opacity: 0.72; transform: translateY(-1px); }
 .reaction-bar--compact .reaction-emoji { font-size: 15px; line-height: 1; }
 .reaction-count { min-width: 1ch; font-size: 11px; line-height: 1; }
 .reaction-error { margin-left: 4px; color: #777; font-size: 10px; }
@@ -464,9 +464,11 @@ video.case-cover--editor { cursor: default; }
   gap: 8px;
   padding: 8px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.13);
-  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.24));
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(22px) saturate(145%);
+  -webkit-backdrop-filter: blur(22px) saturate(145%);
 }
 .reaction-bar--case button {
   position: relative;
@@ -476,12 +478,12 @@ video.case-cover--editor { cursor: default; }
   place-items: center;
   padding: 0;
   border-radius: 50%;
-  background: #111;
-  transition: transform 160ms ease, background 160ms ease;
+  background: transparent;
+  transition: transform 160ms ease, opacity 160ms ease;
 }
 .reaction-bar--case button:hover,
 .reaction-bar--case button:focus-visible,
-.reaction-bar--case button.is-selected { background: #292929; transform: scale(1.06); }
+.reaction-bar--case button.is-selected { background: transparent; transform: scale(1.06); }
 .reaction-bar--case .reaction-emoji { font-size: 40px; line-height: 1; }
 .reaction-bar--case .reaction-count {
   position: absolute;
@@ -489,10 +491,11 @@ video.case-cover--editor { cursor: default; }
   right: -3px;
   min-width: 20px;
   padding: 4px 5px;
-  border: 2px solid #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 999px;
-  background: #111;
-  color: #fff;
+  background: #fff;
+  color: #111;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   text-align: center;
 }
 .reaction-bar--case .reaction-error {
