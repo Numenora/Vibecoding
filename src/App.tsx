@@ -305,12 +305,7 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
 
       <section className="case-content" aria-label="Описание кейса">
         {caseSections.map((section, sectionIndex) => (
-          <div
-            className={`case-section case-section--layout-${(sectionIndex % 3) + 1}`}
-            id={`case-section-${sectionIndex + 1}`}
-            key={section.title}
-          >
-            <span>{String(sectionIndex + 1).padStart(2, "0")}</span>
+          <div className="case-section" id={`case-section-${sectionIndex + 1}`} key={section.title}>
             <div className="case-section-copy">
               <h2>{section.title}</h2>
               <p>{section.text}</p>
