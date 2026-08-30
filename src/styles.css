@@ -68,7 +68,7 @@ main {
   margin: 0;
   max-width: 760px;
   text-align: center;
-  font-size: clamp(18px, 1.55vw, 25px);
+  font-size: 18px;
   line-height: 1.2;
   font-weight: 500;
 }
@@ -550,7 +550,7 @@ video.case-cover--editor { cursor: default; }
   :root { --page: 18px; }
   .site-header { font-size: 11px; }
   .intro { min-height: 430px; padding-top: 54px; }
-  .intro h1 { font-size: 20px; }
+  .intro h1 { font-size: 18px; }
   .project-meta { padding: 20px 42px; }
   .project-meta > span { top: 14px; left: 14px; }
   .project-meta h2 { font-size: 23px; }

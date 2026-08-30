@@ -199,7 +199,7 @@ function HomePage() {
   return (
     <main className="home-page">
       <section className="intro" aria-labelledby="intro-title">
-        <h1 id="intro-title">Старший продуктовый дизайнер с опытом более 10 лет. В последние годы я сосредоточен на развитии продуктов — от точечных улучшений до масштабных редизайнов. Мой основной фокус — продуктовые гипотезы, метрики, развитие дизайн-процессов и внедрение ИИ.</h1>
+        <h1 id="intro-title">Старший продуктовый дизайнер с опытом более 10 лет. Развиваю цифровые продукты: проверяю гипотезы, работаю с метриками, выстраиваю дизайн-процессы и внедряю ИИ.</h1>
       </section>
       <section className="work" id="work" aria-label="Избранные проекты">
         {projects.map((project) => <Project project={project} key={project.number} />)}
