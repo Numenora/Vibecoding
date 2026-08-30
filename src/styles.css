@@ -228,7 +228,7 @@ main { padding: 0 var(--page); }
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background: #f4f4f4;
+  background: #fff;
 }
 
 .case-footer > p {
