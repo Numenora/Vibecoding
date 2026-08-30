@@ -8,6 +8,8 @@ function withBase(href: string) {
   return href.startsWith("/") ? `${basePath}${href}` : href;
 }
 
+const withMediaVersion = (src: string) => `${withBase(src)}?v=20260830-2`;
+
 function withoutBase(href: string) {
   if (!basePath) return href;
   if (href === basePath) return "/";
@@ -184,7 +186,7 @@ function Project({ project }: { project: (typeof projects)[number] }) {
             href={href}
             ariaLabel={`Открыть проект ${project.title}`}
           >
-            <img className="project-cover-single" src={withBase(project.image)} alt={`Интерфейс проекта ${project.title}`} />
+            <img className="project-cover-single" src={withMediaVersion(project.image)} alt={`Интерфейс проекта ${project.title}`} />
           </InternalLink>
           <ReactionBar projectSlug={project.slug} variant="compact" />
         </div>
@@ -225,9 +227,9 @@ function HomePage() {
         <div className="intro-content">
           <h1 id="intro-title">Старший продуктовый дизайнер с опытом более 10 лет. Работал в ПИК, Яндексе и MadRobots. Развиваю цифровые продукты: проверяю гипотезы, работаю с метриками, выстраиваю дизайн-процессы и внедряю ИИ.</h1>
           <ul className="company-logos" aria-label="Компании, в которых я работал">
-            <li><a className="company-logo" data-company="ПИК" href="https://pik-arenda.ru/" target="_blank" rel="noreferrer" aria-label="ПИК"><img src={withBase("/projects/Pik.png")} alt="" /></a></li>
-            <li><a className="company-logo" data-company="Яндекс" href="https://practicum.yandex.ru/" target="_blank" rel="noreferrer" aria-label="Яндекс"><img src={withBase("/projects/Yandex.png")} alt="" /></a></li>
-            <li><a className="company-logo" data-company="MadRobots" href="https://madrobots.ru" target="_blank" rel="noreferrer" aria-label="MadRobots"><img src={withBase("/projects/Madrobots.png")} alt="" /></a></li>
+            <li><a className="company-logo" data-company="ПИК" href="https://pik-arenda.ru/" target="_blank" rel="noreferrer" aria-label="ПИК"><img src={withMediaVersion("/projects/Pik.png")} alt="" /></a></li>
+            <li><a className="company-logo" data-company="Яндекс" href="https://practicum.yandex.ru/" target="_blank" rel="noreferrer" aria-label="Яндекс"><img src={withMediaVersion("/projects/Yandex.png")} alt="" /></a></li>
+            <li><a className="company-logo" data-company="MadRobots" href="https://madrobots.ru" target="_blank" rel="noreferrer" aria-label="MadRobots"><img src={withMediaVersion("/projects/Madrobots.png")} alt="" /></a></li>
           </ul>
         </div>
       </section>
@@ -323,12 +325,12 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
       {"video" in project && project.video ? (
         <HoverVideo
           className="case-cover case-cover--editor"
-          src={withBase(project.video)}
+          src={withMediaVersion(project.video)}
           ariaLabel={`Видео проекта ${project.title}`}
         />
       ) : project.image && (
-        <button className="case-cover-button" type="button" onClick={() => setLightboxImage({ src: withBase(project.image), alt: `Обложка проекта ${project.title}` })} aria-label={`Увеличить обложку проекта ${project.title}`}>
-          <img className={`case-cover${project.slug === "course-editor" ? " case-cover--editor" : ""}`} src={withBase(project.image)} alt={`Обложка проекта ${project.title}`} />
+        <button className="case-cover-button" type="button" onClick={() => setLightboxImage({ src: withMediaVersion(project.image), alt: `Обложка проекта ${project.title}` })} aria-label={`Увеличить обложку проекта ${project.title}`}>
+          <img className={`case-cover${project.slug === "course-editor" ? " case-cover--editor" : ""}`} src={withMediaVersion(project.image)} alt={`Обложка проекта ${project.title}`} />
         </button>
       )}
 
@@ -346,8 +348,8 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
               </div>
               {sectionImage ? (
                 <figure className="case-section-figure">
-                  <button className="case-section-image-button" type="button" onClick={() => setLightboxImage({ src: withBase(sectionImage), alt: `Изображение раздела «${section.title}»` })} aria-label={`Увеличить изображение раздела «${section.title}»`}>
-                    <img className="case-section-image" src={withBase(sectionImage)} alt={`Изображение раздела «${section.title}»`} />
+                  <button className="case-section-image-button" type="button" onClick={() => setLightboxImage({ src: withMediaVersion(sectionImage), alt: `Изображение раздела «${section.title}»` })} aria-label={`Увеличить изображение раздела «${section.title}»`}>
+                    <img className="case-section-image" src={withMediaVersion(sectionImage)} alt={`Изображение раздела «${section.title}»`} />
                   </button>
                   {sectionCaption && <figcaption>{sectionCaption}</figcaption>}
                 </figure>
