@@ -1,5 +1,18 @@
 import { type MouseEvent, useEffect, useRef, useState } from "react";
 
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+function withBase(href: string) {
+  if (!basePath || href === basePath || href.startsWith(`${basePath}/`)) return href;
+  return href.startsWith("/") ? `${basePath}${href}` : href;
+}
+
+function withoutBase(href: string) {
+  if (!basePath) return href;
+  if (href === basePath) return "/";
+  return href.startsWith(`${basePath}/`) ? href.slice(basePath.length) : href;
+}
+
 const projects = [
   {
     slug: "course-editor",
@@ -113,7 +126,7 @@ const projects = [
 
 function navigate(href: string) {
   const from = `${window.location.pathname}${window.location.search}${window.location.hash}`;
-  window.history.pushState({ from }, "", href);
+  window.history.pushState({ from }, "", withBase(href));
   window.dispatchEvent(new PopStateEvent("popstate"));
 }
 
@@ -124,7 +137,7 @@ function InternalLink({ href, className, children, ariaLabel }: { href: string; 
     navigate(href);
   }
 
-  return <a href={href} className={className} aria-label={ariaLabel} onClick={onClick}>{children}</a>;
+  return <a href={withBase(href)} className={className} aria-label={ariaLabel} onClick={onClick}>{children}</a>;
 }
 
 function Header() {
@@ -170,7 +183,7 @@ function Project({ project }: { project: (typeof projects)[number] }) {
             href={href}
             ariaLabel={`Открыть проект ${project.title}`}
           >
-            <img className="project-cover-single" src={project.image} alt={`Интерфейс проекта ${project.title}`} />
+            <img className="project-cover-single" src={withBase(project.image)} alt={`Интерфейс проекта ${project.title}`} />
           </InternalLink>
         </div>
       ) : meta}
@@ -273,7 +286,7 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
   const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null);
   const index = projects.indexOf(project);
   const next = projects[(index + 1) % projects.length];
-  const storedFrom = typeof window.history.state?.from === "string" ? window.history.state.from : "";
+  const storedFrom = typeof window.history.state?.from === "string" ? withoutBase(window.history.state.from) : "";
   const currentPath = `/projects/${project.slug}`;
   const backHref = storedFrom && storedFrom !== currentPath ? storedFrom : "/#work";
   const backSlug = backHref.match(/^\/projects\/([^/?#]+)/)?.[1];
@@ -301,12 +314,12 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
       {"video" in project && project.video ? (
         <HoverVideo
           className="case-cover case-cover--editor"
-          src={project.video}
+          src={withBase(project.video)}
           ariaLabel={`Видео проекта ${project.title}`}
         />
       ) : project.image && (
-        <button className="case-cover-button" type="button" onClick={() => setLightboxImage({ src: project.image, alt: `Обложка проекта ${project.title}` })} aria-label={`Увеличить обложку проекта ${project.title}`}>
-          <img className={`case-cover${project.slug === "course-editor" ? " case-cover--editor" : ""}`} src={project.image} alt={`Обложка проекта ${project.title}`} />
+        <button className="case-cover-button" type="button" onClick={() => setLightboxImage({ src: withBase(project.image), alt: `Обложка проекта ${project.title}` })} aria-label={`Увеличить обложку проекта ${project.title}`}>
+          <img className={`case-cover${project.slug === "course-editor" ? " case-cover--editor" : ""}`} src={withBase(project.image)} alt={`Обложка проекта ${project.title}`} />
         </button>
       )}
 
@@ -324,8 +337,8 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
               </div>
               {sectionImage ? (
                 <figure className="case-section-figure">
-                  <button className="case-section-image-button" type="button" onClick={() => setLightboxImage({ src: sectionImage, alt: `Изображение раздела «${section.title}»` })} aria-label={`Увеличить изображение раздела «${section.title}»`}>
-                    <img className="case-section-image" src={sectionImage} alt={`Изображение раздела «${section.title}»`} />
+                  <button className="case-section-image-button" type="button" onClick={() => setLightboxImage({ src: withBase(sectionImage), alt: `Изображение раздела «${section.title}»` })} aria-label={`Увеличить изображение раздела «${section.title}»`}>
+                    <img className="case-section-image" src={withBase(sectionImage)} alt={`Изображение раздела «${section.title}»`} />
                   </button>
                   {sectionCaption && <figcaption>{sectionCaption}</figcaption>}
                 </figure>
@@ -373,10 +386,10 @@ function NotFoundPage() {
 }
 
 export default function App() {
-  const [path, setPath] = useState(window.location.pathname);
+  const [path, setPath] = useState(withoutBase(window.location.pathname));
 
   useEffect(() => {
-    const onPopState = () => setPath(window.location.pathname);
+    const onPopState = () => setPath(withoutBase(window.location.pathname));
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
