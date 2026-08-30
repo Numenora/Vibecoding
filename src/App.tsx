@@ -12,6 +12,7 @@ const projects = [
     highlight: "−43% задач контент-администраторов · −24% COS",
     image: "/projects/Editor.png",
     video: "/projects/Editor.mp4",
+    mockup: "/projects/Editor-macbook.png",
     caseSections: [
       {
         title: "Контекст",
@@ -141,20 +142,8 @@ function ProjectResult({ project, compact = false }: { project: (typeof projects
 
 function Project({ project }: { project: (typeof projects)[number] }) {
   const href = `/projects/${project.slug}`;
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const video = "video" in project ? project.video : "";
-  const hasCover = Boolean(project.image || video);
-
-  const playCover = () => {
-    if (!videoRef.current) return;
-    void videoRef.current.play();
-  };
-
-  const stopCover = () => {
-    if (!videoRef.current) return;
-    videoRef.current.pause();
-    videoRef.current.currentTime = 0;
-  };
+  const mockup = "mockup" in project ? project.mockup : "";
+  const hasCover = Boolean(project.image);
 
   const meta = (
     <div className="project-meta">
@@ -168,19 +157,18 @@ function Project({ project }: { project: (typeof projects)[number] }) {
   return (
     <article className="project" id={`project-${project.number}`}>
       {hasCover ? (
-        <div className="project-card" onPointerEnter={playCover} onPointerLeave={stopCover}>
+        <div className="project-card">
           {meta}
           <InternalLink className="project-cover" href={href} ariaLabel={`Открыть проект ${project.title}`}>
-            {video ? (
-              <video
-                ref={videoRef}
-                src={video}
-                muted
-                loop
-                playsInline
-                preload="auto"
-                aria-label={`Видеообложка проекта ${project.title}`}
-              />
+            {mockup ? (
+              <div className="project-cover-grid">
+                <div className="project-cover-tile project-cover-tile--editor">
+                  <img src={project.image} alt={`Интерфейс проекта ${project.title}`} />
+                </div>
+                <div className="project-cover-tile project-cover-tile--mockup">
+                  <img src={mockup} alt={`Интерфейс проекта ${project.title} на макбуке`} />
+                </div>
+              </div>
             ) : (
               <img src={project.image} alt={`Обложка проекта ${project.title}`} />
             )}
@@ -188,6 +176,31 @@ function Project({ project }: { project: (typeof projects)[number] }) {
         </div>
       ) : meta}
     </article>
+  );
+}
+
+function HoverVideo({ src, className, ariaLabel }: { src: string; className: string; ariaLabel: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const play = () => { if (videoRef.current) void videoRef.current.play(); };
+  const stop = () => {
+    if (!videoRef.current) return;
+    videoRef.current.pause();
+    videoRef.current.currentTime = 0;
+  };
+
+  return (
+    <video
+      ref={videoRef}
+      className={className}
+      src={src}
+      muted
+      loop
+      playsInline
+      preload="auto"
+      onPointerEnter={play}
+      onPointerLeave={stop}
+      aria-label={ariaLabel}
+    />
   );
 }
 
@@ -287,7 +300,13 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
         </div>
       </section>
 
-      {project.image && (
+      {"video" in project && project.video ? (
+        <HoverVideo
+          className="case-cover case-cover--editor"
+          src={project.video}
+          ariaLabel={`Видео проекта ${project.title}`}
+        />
+      ) : project.image && (
         <button className="case-cover-button" type="button" onClick={() => setLightboxOpen(true)} aria-label={`Увеличить обложку проекта ${project.title}`}>
           <img className={`case-cover${project.slug === "course-editor" ? " case-cover--editor" : ""}`} src={project.image} alt={`Обложка проекта ${project.title}`} />
         </button>
