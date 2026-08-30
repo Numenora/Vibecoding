@@ -465,7 +465,7 @@ video.case-cover--editor { cursor: default; }
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   scrollbar-width: none;
-  padding-block: 18px 26px;
+  padding-block: 18px 60px;
 }
 .case-slider::-webkit-scrollbar { display: none; }
 
@@ -498,7 +498,7 @@ video.case-cover--editor { cursor: default; }
   display: flex;
   justify-content: center;
   gap: 8px;
-  margin-top: -4px;
+  margin-top: -38px;
 }
 
 .case-slider-dots button {
