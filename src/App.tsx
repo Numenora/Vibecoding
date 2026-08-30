@@ -191,7 +191,42 @@ function SiteFooter() {
   );
 }
 
+function ImageLightbox({ src, alt, onClose }: { src: string; alt: string; onClose: () => void }) {
+  const [zoom, setZoom] = useState(1);
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+      if (event.key === "+" || event.key === "=") setZoom((value) => Math.min(3, value + 0.25));
+      if (event.key === "-") setZoom((value) => Math.max(1, value - 0.25));
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [onClose]);
+
+  return (
+    <div className="image-lightbox" role="dialog" aria-modal="true" aria-label={`Просмотр изображения: ${alt}`} onClick={onClose}>
+      <div className="image-lightbox-controls" onClick={(event) => event.stopPropagation()}>
+        <button type="button" onClick={() => setZoom((value) => Math.max(1, value - 0.25))} disabled={zoom === 1} aria-label="Уменьшить">−</button>
+        <span>{Math.round(zoom * 100)}%</span>
+        <button type="button" onClick={() => setZoom((value) => Math.min(3, value + 0.25))} disabled={zoom === 3} aria-label="Увеличить">+</button>
+        <button type="button" onClick={onClose} aria-label="Закрыть просмотр">×</button>
+      </div>
+      <div className={`image-lightbox-stage${zoom > 1 ? " is-zoomed" : ""}`} onClick={(event) => event.stopPropagation()}>
+        <img src={src} alt={alt} style={{ width: zoom > 1 ? `${zoom * 100}%` : undefined }} />
+      </div>
+    </div>
+  );
+}
+
 function CasePage({ project }: { project: (typeof projects)[number] }) {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const index = projects.indexOf(project);
   const next = projects[(index + 1) % projects.length];
   const storedFrom = typeof window.history.state?.from === "string" ? window.history.state.from : "";
@@ -218,7 +253,11 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
         </div>
       </section>
 
-      {project.image && <img className={`case-cover${project.slug === "course-editor" ? " case-cover--editor" : ""}`} src={project.image} alt={`Обложка проекта ${project.title}`} />}
+      {project.image && (
+        <button className="case-cover-button" type="button" onClick={() => setLightboxOpen(true)} aria-label={`Увеличить обложку проекта ${project.title}`}>
+          <img className={`case-cover${project.slug === "course-editor" ? " case-cover--editor" : ""}`} src={project.image} alt={`Обложка проекта ${project.title}`} />
+        </button>
+      )}
 
       <section className="case-content" aria-label="Описание кейса">
         {caseSections.map((section, sectionIndex) => (
@@ -248,6 +287,10 @@ function CasePage({ project }: { project: (typeof projects)[number] }) {
       </nav>
 
       <SiteFooter />
+
+      {lightboxOpen && project.image && (
+        <ImageLightbox src={project.image} alt={`Обложка проекта ${project.title}`} onClose={() => setLightboxOpen(false)} />
+      )}
     </main>
   );
 }
