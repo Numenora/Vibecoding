@@ -165,7 +165,7 @@ function Project({ project }: { project: (typeof projects)[number] }) {
 
 function HomePage() {
   return (
-    <main>
+    <main className="home-page">
       <section className="intro" aria-labelledby="intro-title">
         <h1 id="intro-title">Независимый продуктовый дизайнер. Помогаю командам находить ясность и создавать цифровые продукты с характером.</h1>
       </section>

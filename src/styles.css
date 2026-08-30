@@ -52,7 +52,11 @@ a { color: inherit; text-decoration: none; }
 .site-header a, .project-meta > a { transition: opacity 160ms ease; }
 .site-header a:hover, .site-header a:focus-visible, .project-meta > a:hover, .project-meta > a:focus-visible { opacity: 0.48; }
 
-main { padding: 0 var(--page); }
+main {
+  --content-gutter: var(--page);
+  padding: 0 var(--content-gutter);
+}
+.home-page { --content-gutter: 8px; }
 .intro {
   min-height: 430px;
   padding: clamp(62px, 8vw, 120px) 0 54px;
@@ -132,6 +136,14 @@ main { padding: 0 var(--page); }
 
 .case-page {
   padding-top: 0;
+}
+
+.case-page > .case-hero,
+.case-page > .case-cover-button,
+.case-page > .case-content {
+  width: 100%;
+  max-width: 1024px;
+  margin-inline: auto;
 }
 
 .case-hero {
@@ -364,8 +376,8 @@ main { padding: 0 var(--page); }
   grid-template-columns: 1fr 1fr;
   gap: 28px;
   align-items: center;
-  margin-inline: calc(-1 * var(--page));
-  padding: 12px var(--page) 14px;
+  margin-inline: calc(-1 * var(--content-gutter));
+  padding: 12px var(--content-gutter) 14px;
   background: #111;
   color: #fff;
 }
@@ -393,8 +405,8 @@ main { padding: 0 var(--page); }
 
 .case-footer {
   min-height: 510px;
-  margin-inline: calc(-1 * var(--page));
-  padding: 0 var(--page) 18px;
+  margin-inline: calc(-1 * var(--content-gutter));
+  padding: 0 var(--content-gutter) 18px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
