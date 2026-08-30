@@ -343,7 +343,7 @@ video.case-cover--editor { cursor: default; }
   display: flex;
   flex-direction: column;
   gap: 32px;
-  padding: 80px 0;
+  padding: 0 0 80px;
 }
 
 .case-section-copy {
@@ -389,13 +389,12 @@ video.case-cover--editor { cursor: default; }
   font-size: 11px;
   line-height: 1;
   white-space: nowrap;
-  transition: background-color 160ms ease, color 160ms ease;
+  transition: opacity 160ms ease;
 }
 
 .case-anchor-nav a:hover,
 .case-anchor-nav a:focus-visible {
-  background: #fff;
-  color: #111;
+  opacity: 0.48;
   outline: none;
 }
 
@@ -528,7 +527,7 @@ video.case-cover--editor { cursor: default; }
   .case-cover--editor { aspect-ratio: auto; }
   .image-lightbox { padding: 56px 10px 10px; }
   .image-lightbox-controls { top: 10px; right: 10px; }
-  .case-section { gap: 20px; padding: 64px 0; }
+  .case-section { gap: 20px; padding: 0 0 64px; }
   .case-section-copy { gap: 16px; }
   .case-anchor-nav { bottom: 8px; max-width: calc(100vw - 16px); }
   .case-anchor-nav a { padding: 7px 9px; font-size: 10px; }
