@@ -78,7 +78,7 @@ export function ReactionBar({ projectSlug, variant }: { projectSlug: string; var
       setFlyingReaction(flight);
       window.setTimeout(() => {
         setFlyingReaction((current) => current?.id === flight.id ? null : current);
-      }, 980);
+      }, 1180);
     }
     setSelected((current) => {
       const next = new Set(current);
