@@ -28,14 +28,42 @@ on public.project_reactions for delete
 to authenticated
 using (auth.uid() = user_id);
 
+create table if not exists public.project_reaction_seeds (
+  project_slug text not null,
+  emoji text not null check (emoji in ('❤️', '🔥', '🌚')),
+  count integer not null check (count >= 0),
+  primary key (project_slug, emoji)
+);
+
+alter table public.project_reaction_seeds enable row level security;
+drop policy if exists "Public reaction seeds are readable" on public.project_reaction_seeds;
+create policy "Public reaction seeds are readable"
+on public.project_reaction_seeds for select
+to anon, authenticated
+using (true);
+
+insert into public.project_reaction_seeds (project_slug, emoji, count) values
+  ('course-editor', '❤️', 24), ('course-editor', '🔥', 18), ('course-editor', '🌚', 4),
+  ('catalog-impact', '❤️', 17), ('catalog-impact', '🔥', 29), ('catalog-impact', '🌚', 3),
+  ('checkout-redesign', '❤️', 26), ('checkout-redesign', '🔥', 14), ('checkout-redesign', '🌚', 5)
+on conflict (project_slug, emoji) do update set count = excluded.count;
+
 create or replace view public.project_reaction_counts
 with (security_invoker = true)
 as
-select project_slug, emoji, count(*)::integer as count
-from public.project_reactions
+select project_slug, emoji, sum(count)::integer as count
+from (
+  select project_slug, emoji, count(*)::integer as count
+  from public.project_reactions
+  group by project_slug, emoji
+  union all
+  select project_slug, emoji, count
+  from public.project_reaction_seeds
+) totals
 group by project_slug, emoji;
 
 grant select on public.project_reaction_counts to anon, authenticated;
+grant select on public.project_reaction_seeds to anon, authenticated;
 grant select, insert, delete on public.project_reactions to authenticated;
 grant select on public.project_reactions to anon;
 grant usage, select on sequence public.project_reactions_id_seq to authenticated;
