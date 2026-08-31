@@ -8,7 +8,7 @@ function withBase(href: string) {
   return href.startsWith("/") ? `${basePath}${href}` : href;
 }
 
-const withMediaVersion = (src: string) => `${withBase(src)}?v=20260830-2`;
+const withMediaVersion = (src: string) => `${withBase(src)}?v=20260831-3`;
 
 function withoutBase(href: string) {
   if (!basePath) return href;
