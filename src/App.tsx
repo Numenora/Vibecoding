@@ -111,6 +111,14 @@ const projects = [
   },
 ];
 
+const homeProjectOrder = ["checkout-redesign", "course-editor", "catalog-impact"];
+const homeProjects = homeProjectOrder
+  .map((slug, index) => {
+    const project = projects.find((item) => item.slug === slug);
+    return project ? { ...project, number: String(index + 1).padStart(2, "0") } : null;
+  })
+  .filter((project): project is (typeof projects)[number] => project !== null);
+
 function navigate(href: string) {
   const from = `${window.location.pathname}${window.location.search}${window.location.hash}`;
   window.history.pushState({ from }, "", withBase(href));
@@ -274,7 +282,7 @@ function HomePage() {
         </div>
       </section>
       <section className="work" id="work" aria-label="Избранные проекты">
-        {projects.map((project) => <Project project={project} key={project.number} />)}
+        {homeProjects.map((project) => <Project project={project} key={project.slug} />)}
       </section>
       <SiteFooter />
     </main>
