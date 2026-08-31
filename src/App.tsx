@@ -300,6 +300,7 @@ function SiteFooter() {
         <nav aria-label="Social links">
           <a href="mailto:ya.love.google@yandex.ru">Email</a>
           <a href="https://t.me/a_suhov">Telegram</a>
+          <a href={withBase("/projects/Сухов Александр.pdf")} target="_blank" rel="noreferrer">CV</a>
         </nav>
         <span>Завайбкожено в 2026</span>
       </div>
