@@ -134,7 +134,7 @@ function Header() {
       <InternalLink href="/" className="site-header-home">Главная</InternalLink>
       <nav className="site-header-contact" aria-label="Контакты и резюме">
         <a href="https://t.me/a_suhov">Telegram</a>
-        <a href={withBase("/projects/Сухов Александр.pdf")} download="Alexander-Sukhov-CV.pdf">CV</a>
+        <a href={withBase("/projects/Сухов Александр.pdf")} target="_blank" rel="noreferrer">CV</a>
       </nav>
     </header>
   );

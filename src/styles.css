@@ -208,7 +208,7 @@ main {
 .reaction-bar--compact button:hover,
 .reaction-bar--compact button:focus-visible { opacity: 0.72; transform: translateY(-1px); }
 .reaction-bar--compact button.is-selected {
-  border-radius: 14px;
+  border-radius: 999px;
   background: #0878ff;
   opacity: 1;
   transform: translateY(-1px);
@@ -554,7 +554,7 @@ video.case-cover--editor { cursor: default; }
 .reaction-bar--case button:hover,
 .reaction-bar--case button:focus-visible { transform: scale(1.06); }
 .reaction-bar--case button.is-selected {
-  border-radius: 16px;
+  border-radius: 999px;
   background: #0878ff;
   transform: scale(1.06);
 }
