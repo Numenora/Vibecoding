@@ -208,11 +208,12 @@ main {
 .reaction-bar--compact button:hover,
 .reaction-bar--compact button:focus-visible { opacity: 0.72; transform: translateY(-1px); }
 .reaction-bar--compact button.is-selected {
-  border-radius: 50%;
+  border-radius: 14px;
   background: #0878ff;
   opacity: 1;
   transform: translateY(-1px);
 }
+.reaction-bar--compact button.is-selected .reaction-count { color: #fff; }
 .reaction-bar--compact .reaction-emoji { font-size: 15px; line-height: 1; }
 .reaction-count { min-width: 1ch; font-size: 11px; line-height: 1; }
 .reaction-error { margin-left: 4px; color: #777; font-size: 10px; }
@@ -553,10 +554,11 @@ video.case-cover--editor { cursor: default; }
 .reaction-bar--case button:hover,
 .reaction-bar--case button:focus-visible { transform: scale(1.06); }
 .reaction-bar--case button.is-selected {
-  border-radius: 50%;
+  border-radius: 16px;
   background: #0878ff;
   transform: scale(1.06);
 }
+.reaction-bar--case button.is-selected .reaction-count { color: #fff; }
 .reaction-bar--case .reaction-emoji { font-size: 40px; line-height: 1; }
 .reaction-bar--case .reaction-count {
   position: static;
