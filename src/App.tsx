@@ -273,7 +273,7 @@ function HomePage() {
     <main className="home-page">
       <section className="intro" aria-labelledby="intro-title">
         <div className="intro-content">
-          <h1 id="intro-title">Старший продуктовый дизайнер с опытом более 10 лет. Работал в ПИК, Яндексе и MadRobots. Развиваю цифровые продукты: проверяю гипотезы, работаю с метриками, выстраиваю дизайн-процессы и внедряю ИИ.</h1>
+          <h1 id="intro-title">Продуктовый дизайнер с опытом 9 лет. Работал в ПИК, MadRobots и Яндексе. Развиваю цифровые продукты: проверяю гипотезы, работаю с метриками. Активно использую ИИ в работе.</h1>
           <ul className="company-logos" aria-label="Компании, в которых я работал">
             <li><a className="company-logo" data-company="ПИК" href="https://pik-arenda.ru/" target="_blank" rel="noreferrer" aria-label="ПИК"><img src={withMediaVersion("/projects/Pik.png")} alt="" /></a></li>
             <li><a className="company-logo" data-company="Яндекс" href="https://practicum.yandex.ru/" target="_blank" rel="noreferrer" aria-label="Яндекс"><img src={withMediaVersion("/projects/Yandex.png")} alt="" /></a></li>
