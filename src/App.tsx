@@ -8,7 +8,7 @@ function withBase(href: string) {
   return href.startsWith("/") ? `${basePath}${href}` : href;
 }
 
-const withMediaVersion = (src: string) => `${withBase(src)}?v=20260831-5`;
+const withMediaVersion = (src: string) => `${withBase(src)}?v=20260831-6`;
 
 function withoutBase(href: string) {
   if (!basePath) return href;
@@ -298,7 +298,6 @@ function SiteFooter() {
       </p>
       <div className="case-footer-bottom">
         <nav aria-label="Social links">
-          <a href="mailto:ya.love.google@yandex.ru">Email</a>
           <a href="https://t.me/a_suhov">Telegram</a>
           <a href={withBase("/projects/Сухов Александр.pdf")} target="_blank" rel="noreferrer">CV</a>
         </nav>
