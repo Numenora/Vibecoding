@@ -48,7 +48,7 @@ a { color: inherit; text-decoration: none; }
   line-height: 1;
 }
 .site-header-home { justify-self: center; }
-.site-header-contact { justify-self: end; }
+.site-header-contact { display: flex; align-items: center; justify-self: end; gap: 18px; }
 .site-header a, .project-meta > a { transition: opacity 160ms ease; }
 .site-header a:hover, .site-header a:focus-visible, .project-meta > a:hover, .project-meta > a:focus-visible { opacity: 0.48; }
 
